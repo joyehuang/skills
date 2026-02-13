@@ -1,0 +1,158 @@
+{
+  "analysis": {
+    "coreMessage": "Solar energy isn't just better for the planet—it's better for your wallet, cutting energy bills by up to 70% while increasing home value by $15,000 on average.",
+    "targetAudience": "Homeowners aged 35-55 interested in sustainability and long-term cost savings",
+    "keyPoints": [
+      {
+        "point": "Solar panels pay for themselves in 6-8 years",
+        "evidence": "With average energy savings of $1,500/year and federal tax credits covering 30%, most homeowners break even quickly."
+      },
+      {
+        "point": "Solar increases home resale value by $15,000 on average",
+        "evidence": "Studies show homes with solar sell for more money and spend 20% less time on the market."
+      },
+      {
+        "point": "Modern solar panels last 25-30 years with minimal maintenance",
+        "evidence": "Today's panels come with 25-year performance warranties and require just occasional cleaning."
+      },
+      {
+        "point": "Installation takes only 1-3 days",
+        "evidence": "Professional installation is quick—typically completed in one long weekend."
+      }
+    ],
+    "hook": "What if I told you your roof could make you money while you sleep?",
+    "cta": "Schedule your free solar assessment at GreenEnergy.com/free—limited slots available this month.",
+    "tone": "professional"
+  },
+  "metadata": {
+    "title": "10 Reasons to Switch to Solar Energy",
+    "duration": 119.0,
+    "fps": 30,
+    "style": "neon-glassmorphism"
+  },
+  "scenes": [
+    {
+      "id": "scene-1",
+      "type": "hook",
+      "startTime": 0,
+      "duration": 7.0,
+      "startFrame": 0,
+      "durationFrames": 210,
+      "narration": "What if I told you your roof could actually make you money while you sleep? Sound too good to be true? Let me show you why it's not.",
+      "visualCues": {
+        "keywords": ["roof", "money", "sleep"],
+        "animation": "bouncy"
+      }
+    },
+    {
+      "id": "scene-2",
+      "type": "textDisplay",
+      "startTime": 7.0,
+      "duration": 20.0,
+      "startFrame": 210,
+      "durationFrames": 600,
+      "narration": "Here's the reality: solar energy isn't just better for the planet—it's way better for your wallet too. Right now, homeowners across America are cutting their monthly energy bills by up to seventy percent. That's not a typo. Seventy percent. And at the same time, they're increasing their home's resale value by an average of fifteen thousand dollars. It's a complete win-win situation.",
+      "visualCues": {
+        "keywords": ["solar energy", "70% savings", "$15,000 value"],
+        "animation": "smooth"
+      }
+    },
+    {
+      "id": "scene-3",
+      "type": "numberComparison",
+      "startTime": 27.0,
+      "duration": 17.0,
+      "startFrame": 810,
+      "durationFrames": 510,
+      "narration": "Now here's the best part: solar panels actually pay for themselves in just six to eight years. Think about that. With average savings of fifteen hundred dollars every single year, plus a thirty percent federal tax credit that covers a huge chunk of your installation costs, you'll break even way faster than you think. After that? Pure profit in your pocket.",
+      "visualCues": {
+        "keywords": ["6-8 years", "$1,500 per year", "30% tax credit"],
+        "numbers": [
+          {
+            "label": "Payback Period",
+            "newValue": "6-8 years"
+          },
+          {
+            "label": "Annual Savings",
+            "oldValue": "$3,000",
+            "newValue": "$1,500"
+          },
+          {
+            "label": "Federal Tax Credit",
+            "newValue": "30%"
+          }
+        ],
+        "animation": "smooth",
+        "layout": "split-screen"
+      }
+    },
+    {
+      "id": "scene-4",
+      "type": "threeColumns",
+      "startTime": 44.0,
+      "duration": 20.0,
+      "startFrame": 1320,
+      "durationFrames": 600,
+      "narration": "And get this: today's solar panels are built to last. First, they come with twenty-five year performance warranties. That's a quarter century of guaranteed energy production. Second, they require almost zero maintenance—just occasional cleaning to remove dust and debris. No moving parts to break down. And third, they deliver lasting value for decades to come. We're talking about panels that can easily last thirty years or more. That's decades of free electricity.",
+      "visualCues": {
+        "keywords": ["25-year warranty", "zero maintenance", "30+ years"],
+        "animation": "stagger"
+      }
+    },
+    {
+      "id": "scene-5",
+      "type": "caseStudy",
+      "startTime": 64.0,
+      "duration": 25.0,
+      "startFrame": 1920,
+      "durationFrames": 750,
+      "narration": "Let me give you a real example. Take the Martinez family in Phoenix, Arizona. They installed solar panels in twenty twenty. Their monthly electric bill? It dropped from two hundred fifty dollars down to just sixty dollars. That's a savings of a hundred ninety dollars every single month. Over five years, they've saved over eleven thousand dollars. And when they sold their home last year, they got twenty thousand dollars more than comparable homes on their street. Twenty thousand dollars. That's the power of solar.",
+      "visualCues": {
+        "keywords": ["Martinez family", "$250 → $60", "$11,000 saved", "$20,000 more"],
+        "numbers": [
+          {
+            "label": "Monthly Bill",
+            "oldValue": "$250",
+            "newValue": "$60"
+          },
+          {
+            "label": "5-Year Savings",
+            "newValue": "$11,000"
+          },
+          {
+            "label": "Home Value Increase",
+            "newValue": "$20,000"
+          }
+        ],
+        "animation": "smooth",
+        "layout": "centered"
+      }
+    },
+    {
+      "id": "scene-6",
+      "type": "textDisplay",
+      "startTime": 89.0,
+      "duration": 18.0,
+      "startFrame": 2670,
+      "durationFrames": 540,
+      "narration": "Now you might be thinking: this sounds complicated. It's not. Installation is incredibly quick. Professional solar installation typically takes just one to three days from start to finish. That's it. One long weekend, and your home is completely transformed into an energy-producing powerhouse. Most families schedule it around their normal routine and barely notice the installation process.",
+      "visualCues": {
+        "keywords": ["1-3 days", "quick installation", "energy powerhouse"],
+        "animation": "bouncy"
+      }
+    },
+    {
+      "id": "scene-7",
+      "type": "cta",
+      "startTime": 107.0,
+      "duration": 12.0,
+      "startFrame": 3210,
+      "durationFrames": 360,
+      "narration": "So are you ready to start saving money and increasing your home's value? Schedule your completely free solar assessment today at GreenEnergy dot com slash free. That's GreenEnergy dot com slash free. We have limited assessment slots available this month, so don't wait. Visit GreenEnergy dot com slash free right now.",
+      "visualCues": {
+        "keywords": ["free assessment", "GreenEnergy.com/free", "limited slots", "don't wait"],
+        "animation": "scale"
+      }
+    }
+  ]
+}
