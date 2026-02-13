@@ -1,0 +1,30 @@
+# ============================================================
+# X Auto Engagement - Environment Variables
+# ============================================================
+# Copy this file to .env in your user workspace root and fill
+# in the values.
+#
+# Location: users/{name}/.env
+# ============================================================
+
+# ------------------------------------------------------------
+# X API OAuth 1.0a Credentials
+# ------------------------------------------------------------
+# Get these from https://developer.x.com/en/portal/dashboard
+# Your app needs Read and Write permissions.
+# All four values are required for timeline read + like/reply.
+
+X_CONSUMER_KEY=your_consumer_key_here
+X_CONSUMER_SECRET=your_consumer_secret_here
+X_ACCESS_TOKEN=your_access_token_here
+X_ACCESS_TOKEN_SECRET=your_access_token_secret_here
+
+# Your X user ID (numeric). Used to fetch home timeline.
+# Find it at https://tweeterid.com or via the X API.
+X_USER_ID=your_numeric_user_id_here
+
+# ------------------------------------------------------------
+# Optional
+# ------------------------------------------------------------
+# HTTP proxy for X API calls (e.g. http://127.0.0.1:8118)
+# X_PROXY_URL=
