@@ -1,4 +1,7 @@
-Base directory for this skill: /Users/de-shiouhuang/Dropbox/code/tezign/tts-test/.claude/skills/gemini-tts-fast
+---
+name: gemini-tts-fast
+description: Convert text to speech with Google Gemini TTS API at fixed 1.2x playback speed and WAV output. Use when users need fast narration generation from English or Chinese text, with optional voice and output filename.
+---
 
 # Gemini Text-to-Speech Skill (1.2x Speed)
 
