@@ -1,0 +1,23 @@
+{
+  "skill_name": "archive-card-writer",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "我给你一段很碎的笔记：\n- prompt 注入很多时候不是 runtime 才防，而是 system/developer/user 的 instruction hierarchy 先分层\n- Anthropic 更像 sandbox 思路\n- 这些东西以后可能跟 Agent 安全博客写在一起\n帮我整理成 archive 卡片，能合并就合并，不能合并就新建。",
+      "expected_output": "Creates or merges an archive card in personal/blog/src/content/archive with Chinese-first structure, sensible tags, and note of possible relation to future blog content.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "把这段内容记到我的 Personal Blog archive：\n‘React Server Components 和缓存边界这块，我现在的理解还是半成品：真正难的是 invalidation，不是 fetch 本身。可以先记成 in-progress。’\n文件名别太长。",
+      "expected_output": "Creates a new concise archive card with month-prefixed English slug, status in-progress, and compact archive-style body.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "我又补充一点上下文工程的碎片：\n- working memory / short-term / long-term 不应该只按时间分\n- 还要按重要性和可恢复性分\n如果 archive 里已经有类似内容，就直接补进去，不要新建重复卡片。",
+      "expected_output": "Finds a semantically similar existing archive card and merges the content instead of creating a duplicate file.",
+      "files": []
+    }
+  ]
+}
