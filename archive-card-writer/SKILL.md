@@ -40,9 +40,10 @@ When triggered, do this sequence:
 11. Keep technical terms and data in English when that is more natural or precise.
 12. Create a dedicated git branch for this card workflow. Use the card filename slug (without `.md`) as the branch name whenever practical.
 13. After writing into the blog project, run validation when practical:
-   - `npm run check`
-   - or `npm run build`
-   - optionally `npm run lint` if the change touched app/page code rather than just content
+   - `bun run check`
+   - or `bun run build`
+   - optionally `bun run lint` if the change touched app/page code rather than just content
+   - Note: `bun` is installed at `/home/ubuntu/.bun/bin/bun`. If it is not in PATH in the current shell session, use the full path.
 14. Commit and push the branch.
 15. Open a PR to `main`.
 16. Merge the PR after verification, so each archive card can ship independently and multiple archive cards can proceed in parallel.
