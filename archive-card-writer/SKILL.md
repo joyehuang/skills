@@ -12,9 +12,9 @@ The goal is **not** to over-polish everything into a blog article. The goal is t
 ## Primary target
 
 Write into:
-- `personal/blog/src/content/archive/`
+- `/mnt/hermes-data/personal/projects/blog/src/content/archive/`
 
-This skill is OpenClaw-facing, but its content target is the Personal Blog archive.
+This skill is used by the agent, but its content target is the Personal Blog archive.
 
 ## Workflow
 
@@ -40,9 +40,9 @@ When triggered, do this sequence:
 11. Keep technical terms and data in English when that is more natural or precise.
 12. Create a dedicated git branch for this card workflow. Use the card filename slug (without `.md`) as the branch name whenever practical.
 13. After writing into the blog project, run validation when practical:
-   - `bun run check`
-   - or `bun run build`
-   - optionally `bun run lint` if the change touched app/page code rather than just content
+   - `npm run check`
+   - or `npm run build`
+   - optionally `npm run lint` if the change touched app/page code rather than just content
 14. Commit and push the branch.
 15. Open a PR to `main`.
 16. Merge the PR after verification, so each archive card can ship independently and multiple archive cards can proceed in parallel.
@@ -166,6 +166,12 @@ Start from the tags already seen in the project. Reuse these when relevant:
 - `agent`
 - `llm`
 - `prompt`
+- `rag`
+- `embedding`
+- `retrieval`
+- `security`
+- `multi-agent`
+- `orchestration`
 - `transformer`
 - `rope`
 - `normalization`
@@ -174,6 +180,9 @@ Start from the tags already seen in the project. Reuse these when relevant:
 - `typescript`
 - `performance`
 - `reference`
+- `software engineering`
+- `workflow`
+- `codex`
 - `images`
 - `astro`
 - `waline`
