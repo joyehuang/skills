@@ -40,14 +40,19 @@ When triggered, do this sequence:
 11. Keep technical terms and data in English when that is more natural or precise.
 12. Create a dedicated git branch for this card workflow. Use the card filename slug (without `.md`) as the branch name whenever practical.
 13. After writing into the blog project, run validation when practical:
-   - `bun run check`
-   - or `bun run build`
-   - optionally `bun run lint` if the change touched app/page code rather than just content
-   - Note: `bun` is installed at `/home/ubuntu/.bun/bin/bun`. If it is not in PATH in the current shell session, use the full path.
-14. Commit and push the branch.
-15. Open a PR to `main`.
-16. Merge the PR after verification, so each archive card can ship independently and multiple archive cards can proceed in parallel.
-17. Do not stop at “file created locally” unless the user explicitly asks you not to continue. The default finish line for this skill is: **content written → validated → committed → pushed → PR opened → merged**.
+    - `bun run check`
+    - or `bun run build`
+    - optionally `bun run lint` if the change touched app/page code rather than just content
+    - Note: `bun` is installed at `/home/ubuntu/.bun/bin/bun`. If it is not in PATH in the current shell session, use the full path.
+14. **Check Vercel deployment status** using the Vercel CLI (already logged in):
+    - Run `vercel list` to see the latest deployments for this project.
+    - If any deployment shows `Error` status, investigate and fix the root cause (e.g., content schema violations, build failures).
+    - Common fix: Astro content collection schema errors like "title too long" or "description too long" — shorten the frontmatter fields and re-validate with `bun run check`.
+    - Do **not** proceed to merge until the deployment status is `Ready` or `Production`.
+15. Commit and push the branch.
+16. Open a PR to `main`.
+17. Merge the PR after verification, so each archive card can ship independently and multiple archive cards can proceed in parallel.
+18. Do not stop at “file created locally” unless the user explicitly asks you not to continue. The default finish line for this skill is: **content written → validated → deployed → committed → pushed → PR opened → merged**.
 
 ## Language and tone
 
@@ -332,6 +337,29 @@ follow this retrieval order:
 3. If the page requires login and the content cannot be accessed, say so plainly and avoid pretending the title or preview text is the full source.
 4. When archiving a conversation link, capture the actual exchanged points, decisions, examples, and conclusions — not just the headline.
 5. If the retrieved content is incomplete, archive only what was actually observed and mark the limitation in the card body or `source` context.
+
+### ChatGPT share links — specific method
+
+ChatGPT share links (`chatgpt.com/share/...`) render conversation content client-side via JavaScript. Simple HTTP fetch returns empty HTML.
+
+**Proven working method (do not waste time on others):**
+1. Download [ChatPeek](https://github.com/vl3c/ChatPeek) from GitHub:
+   ```bash
+   curl -sL -o /tmp/ChatPeek.py https://raw.githubusercontent.com/vl3c/ChatPeek/master/ChatPeek.py
+   ```
+2. Run it against the share link:
+   ```bash
+   python3 /tmp/ChatPeek.py "https://chatgpt.com/share/XXXX"
+   ```
+3. Output is saved to `/tmp/Exports/chat-{share-id}.md`
+4. Read this markdown file to get the full conversation.
+
+**What was tried and did NOT work (avoid repeating):**
+- `web_extract` tool → returned empty content (ChatGPT pages are JS-rendered)
+- `curl` with browser UA → got shell HTML without conversation data
+- Playwright browser automation → Python module not available; `npx playwright install` failed on Ubuntu 26.04
+
+**Always use ChatPeek first for ChatGPT share links.**
 
 ## Expected behavior in conversation
 
