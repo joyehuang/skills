@@ -338,28 +338,46 @@ follow this retrieval order:
 4. When archiving a conversation link, capture the actual exchanged points, decisions, examples, and conclusions — not just the headline.
 5. If the retrieved content is incomplete, archive only what was actually observed and mark the limitation in the card body or `source` context.
 
-### ChatGPT share links — specific method
+### ChatGPT / Grok / Gemini share links — specific method
 
-ChatGPT share links (`chatgpt.com/share/...`) render conversation content client-side via JavaScript. Simple HTTP fetch returns empty HTML.
+Share links from LLM platforms (ChatGPT, Grok, Gemini, Claude) render conversation content client-side via JavaScript. Simple HTTP fetch returns empty HTML.
 
-**Proven working method (do not waste time on others):**
-1. Download [ChatPeek](https://github.com/vl3c/ChatPeek) from GitHub:
-   ```bash
-   curl -sL -o /tmp/ChatPeek.py https://raw.githubusercontent.com/vl3c/ChatPeek/master/ChatPeek.py
-   ```
-2. Run it against the share link:
-   ```bash
-   python3 /tmp/ChatPeek.py "https://chatgpt.com/share/XXXX"
-   ```
-3. Output is saved to `/tmp/Exports/chat-{share-id}.md`
-4. Read this markdown file to get the full conversation.
+**Proven working method: Playwright + System Chromium**
+
+The server has system Chromium installed at `/usr/bin/chromium-browser`. Use Playwright directly to extract rendered page content:
+
+```python
+from playwright.async_api import async_playwright
+import asyncio
+
+async def extract_share_link(url: str) -> str:
+    async with async_playwright() as p:
+        browser = await p.chromium.launch(
+            executable_path='/usr/bin/chromium-browser',
+            headless=True,
+            args=['--no-sandbox', '--disable-dev-shm-usage']
+        )
+        page = await browser.new_page()
+        await page.goto(url, wait_until="domcontentloaded", timeout=60000)
+        await page.wait_for_timeout(8000)  # Wait for JS rendering
+        text = await page.locator('body').inner_text()
+        await browser.close()
+        return text
+```
+
+**Key points:**
+- `wait_until="domcontentloaded"` instead of `networkidle` — faster and sufficient for share links
+- `wait_for_timeout(8000)` — give JS time to render conversation content
+- Extract `body` inner text — gets all rendered conversation text
+- Works for ChatGPT, Grok, Gemini share links (tested and verified)
 
 **What was tried and did NOT work (avoid repeating):**
-- `web_extract` tool → returned empty content (ChatGPT pages are JS-rendered)
-- `curl` with browser UA → got shell HTML without conversation data
-- Playwright browser automation → Python module not available; `npx playwright install` failed on Ubuntu 26.04
+- `web_extract` tool → returns empty content (JS-rendered pages)
+- `curl` with browser UA → gets shell HTML without conversation data
+- ChatPeek (Python tool) → works but only for ChatGPT; Playwright is more general
+- browser-use agent → requires LLM API key for decision-making; overkill for simple extraction
 
-**Always use ChatPeek first for ChatGPT share links.**
+**Always use Playwright + system Chromium first for any share link.**
 
 ## Expected behavior in conversation
 
