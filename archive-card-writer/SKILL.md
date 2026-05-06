@@ -415,6 +415,36 @@ Action:
 - search for an existing context-engineering or memory-layer card
 - if found, merge into it instead of creating a duplicate file
 
+## Markdown gotchas — critical
+
+Astro/remark has specific rendering quirks with Chinese characters. These patterns **leak raw markdown syntax into rendered HTML** and must be avoided:
+
+### 1. Bold + Chinese colon bug
+
+**BAD** — `**` immediately after fullwidth colon `：` is NOT rendered as `<strong>`:
+```markdown
+**进一步优化：**最好再 fsync
+```
+→ Renders as literal `**进一步优化：**` on the page.
+
+**GOOD** — move the colon outside the bold markers:
+```markdown
+**进一步优化**：最好再 fsync
+```
+→ Renders as `<strong>进一步优化</strong>：最好再 fsync
+
+Rule: `**Chinese text**：` ← colon AFTER closing `**`, never `**Chinese text：**` ← colon INSIDE markers.
+
+This applies to **all** bold patterns where Chinese colon belongs to the bold text — just break it out.
+
+### 2. Underscores in file/code references
+
+`memory_tool.py`, `created_at`, `updated_at` — these work fine as plain text or inside backticks. Do NOT escape underscores with backslashes (`memory\_tool.py`).
+
+### 3. Confirm rendering locally
+
+When practical, check the rendered HTML locally or via the Vercel preview URL to verify bold markers and code references rendered correctly. The `**Chinese text：**` bug is invisible in the raw .md file — you need to see the HTML or the deployed page to catch it.
+
 ## Constraints
 
 - do not turn everything into a polished blog post
