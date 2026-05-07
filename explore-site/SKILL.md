@@ -88,9 +88,15 @@ Treat it as authoritative. Don't guess.
 
 1. Walk the tree. Find directories whose name suggests posts (`/blog`,
    `/posts`, `/articles`, `/notes`, `/checkins`, etc).
-2. Sort children by `meta.date` if present, else by name (often dates lead).
-3. Take the most recent. Fetch its `endpoint` (file with both `endpoint` and
-   `href` — prefer `endpoint` for structured content).
+2. **Sort children by date.** Try in order: dir-level `meta.date`,
+   then a `meta` child's content (parse it), then the dir name (often
+   dates lead). Same drill for `meta.lang` if you need to filter by
+   language.
+3. Take the most recent. Fetch via the `endpoint` field — **never
+   construct the URL from `name`**. Astro/Hugo/etc collection ids
+   and FS-safe names commonly diverge (e.g. `name=foo-bar-post` vs
+   `endpoint=/api/blog/foo---bar/post`). Use the dir's `meta.endpoint`
+   if present, otherwise the `post` child's `endpoint`.
 4. Synthesize an answer with citations to the path you fetched.
 
 > "Find resources about Rust on joye.checkin"
@@ -136,10 +142,12 @@ Only fetch endpoint URLs when you need the full body.
 
 ## Step 5: Fetch Endpoints
 
-For file nodes with `endpoint`:
+For file nodes (or dir nodes with `meta.endpoint`) carrying an `endpoint`:
 
-1. **GET the endpoint URL.** It's usually relative (`/api/blog/<id>`) — resolve
-   against `site`.
+1. **GET the endpoint URL verbatim.** Don't reconstruct it from `name` —
+   the owner-supplied URL is authoritative. URLs are usually relative
+   (`/api/blog/<id>`) — resolve against `site`. Follow redirects (some
+   apex domains 307 to www).
 2. **Check `format` from the endpoints dictionary.** Common shapes:
    - `format: "json"` with `fields: ["html", "headings"]` → parse JSON, take
      `html` (server-rendered, often shiki-highlighted) and `headings` (list of
