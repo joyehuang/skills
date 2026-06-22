@@ -37,6 +37,7 @@ npx skills add joyehuang/skills
 | [`resume`](./resume) | Package project work into STAR-format resume content + interview prep. |
 | [`brainstorm`](./brainstorm) | Discover secondary development directions for the current project. |
 | [`archive-card-writer`](./archive-card-writer) | Turn fragmented notes into structured archive cards for a personal blog. |
+| [`curated-content-writer`](./curated-content-writer) | Turn external papers / articles / links into concise curated entries with reading notes. |
 
 ### Video & content production
 
