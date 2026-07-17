@@ -5,7 +5,7 @@ Run commands from the selected Personal Wiki root. Read that checkout’s `AGENT
 ## Inspect
 
 ```bash
-npm run ingest -- status --json
+node scripts/ingest.mjs status --json
 ```
 
 Use read-only status for progress questions. Do not create a commit merely for inspection.
@@ -15,13 +15,13 @@ Use read-only status for progress questions. Do not create a commit merely for i
 URL or local Markdown file:
 
 ```bash
-npm run ingest -- add "<url-or-path>" --json
+node scripts/ingest.mjs add "<url-or-path>" --json
 ```
 
 Pasted Markdown:
 
 ```bash
-npm run ingest -- add --stdin --title "<optional-title>" --json
+node scripts/ingest.mjs add --stdin --title "<optional-title>" --json
 ```
 
 Use the execution environment’s stdin facility. Do not interpolate private Markdown into a shell command.
@@ -29,7 +29,7 @@ Use the execution environment’s stdin facility. Do not interpolate private Mar
 Create the Capture without attempting resolution:
 
 ```bash
-npm run ingest -- add "<url-or-path>" --no-resolve --json
+node scripts/ingest.mjs add "<url-or-path>" --no-resolve --json
 ```
 
 ## Resume
@@ -37,19 +37,19 @@ npm run ingest -- add "<url-or-path>" --no-resolve --json
 Retry pending work:
 
 ```bash
-npm run ingest -- resume --json
+node scripts/ingest.mjs resume --json
 ```
 
 Retry pending and blocked work after capabilities change:
 
 ```bash
-npm run ingest -- resume --blocked --json
+node scripts/ingest.mjs resume --blocked --json
 ```
 
 Retry one Capture:
 
 ```bash
-npm run ingest -- resolve "capture_<uuidv7>" --json
+node scripts/ingest.mjs resolve "capture_<uuidv7>" --json
 ```
 
 ## Browser extraction bridge
@@ -57,13 +57,13 @@ npm run ingest -- resolve "capture_<uuidv7>" --json
 Submit repository-extracted browser data through stdin:
 
 ```bash
-npm run ingest -- resolve "capture_<uuidv7>" --browser-extraction-stdin --json
+node scripts/ingest.mjs resolve "capture_<uuidv7>" --browser-extraction-stdin --json
 ```
 
 When stdin is impractical, write the extraction only under the ignored `.cache/ingestion/` boundary and use:
 
 ```bash
-npm run ingest -- resolve "capture_<uuidv7>" --browser-extraction-file ".cache/ingestion/<capture-id>.json" --json
+node scripts/ingest.mjs resolve "capture_<uuidv7>" --browser-extraction-file ".cache/ingestion/<capture-id>.json" --json
 ```
 
 Do not commit extraction JSON. The CLI validates it, renders the Source, and updates the existing Capture.

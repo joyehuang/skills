@@ -38,7 +38,7 @@ Never treat a Source as verified fact. Keep source evidence, Agent inference, an
 
 ## Ingest through the repository CLI
 
-Read `references/commands.md`, then use `npm run ingest` from the Wiki root.
+Read `references/commands.md`, then use the repository CLI from the Wiki root.
 
 The CLI must create a Capture before provider, network, or browser work. Do not hand-author Capture or Source files when the CLI supports the input.
 

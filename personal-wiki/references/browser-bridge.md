@@ -48,7 +48,7 @@ Do not rewrite message bodies in the Skill.
 Serialize the extraction as JSON and pass it to:
 
 ```bash
-npm run ingest -- resolve "capture_<uuidv7>" --browser-extraction-stdin --json
+node scripts/ingest.mjs resolve "capture_<uuidv7>" --browser-extraction-stdin --json
 ```
 
 The repository converts the extraction into a validated Snapshot, redacts credential-bearing URLs, computes content identity, deduplicates the provider revision, writes Source Markdown, and transitions the existing Capture.
