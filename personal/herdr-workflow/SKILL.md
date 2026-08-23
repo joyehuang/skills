@@ -89,23 +89,28 @@ herdr agent prompt <name> "$(cat prompts/stage2.txt)" --wait --timeout 1800000
 
 把 v1+v2+v3 的完整需求写进**一个 prompt**，让一个 agent 一口气做完，只打一个最终 `DONE_XXX`。适合阶段间耦合紧、中途不需人工确认的任务。缺点是单次运行时间长、中途不能插入新需求。
 
-### 方式 C：后台盯梢脚本（无人值守时）
+### 方式 C：herdr 内置 wait（无人值守时，2026-08-23 修正）
+
+**不需要手写轮询脚本** —— herdr 内置了完整的等待机制：
 
 ```bash
-# 后台跑一个完整接力脚本，跑完才退出
+# 后台跑一个接力脚本，每阶段用 herdr 内置 wait 等完成，跑完才退出
 cat > /tmp/relay.sh << 'EOF'
-until herdr agent read <name> --source recent-unwrapped 2>/dev/null | grep -q "DONE_V2"; do sleep 60; done
-herdr agent prompt <name> "$(cat v3.txt)" --wait --timeout 1800000
+herdr agent wait <name> --until done --timeout 1800000   # 等任务完成（agent 回 idle/done）
+herdr agent prompt <name> "$(cat v3.txt)" --wait --timeout 1800000  # 下一阶段（--wait 本身就等到完成）
 EOF
 nohup bash /tmp/relay.sh > /tmp/relay.log 2>&1 &
 ```
 
-- 适合：用户睡觉/离开时跑长链路，睡醒直接看结果
+关键点：
+- `agent prompt --wait` / `agent wait` 本身就等到 settled 状态（idle/done/blocked）才返回，**无需轮询**
+- 等特定输出用 `herdr pane wait-output <pane> --match "DONE_XXX" --timeout <ms>`
+- `--wait` 被 bash 工具 timeout 截断 ≠ 任务没在跑 —— 把带 `--wait` 的命令放后台（nohup）跑，完成读日志即可
 - 多阶段都写进一个脚本，最后一步完成后可加通知（如 notify-telegram.py）
 
 ### 铁律
 
-- 承诺“我收尾/我盯着”必须伴随实际保障机制（接力脚本/定时轮询），否则不说
+- 承诺“我收尾/我盯着”必须伴随实际保障机制（herdr 内置 wait/接力脚本），否则不说
 - `--wait` 被 abort ≠ 任务没在跑，先查 `herdr agent get <name>` 的 `agent_status` 再判断
 - 阶段完成标准 = prompt 里要求的 `DONE_XXX` 标记出现，不是时间到了就以为完成
 
