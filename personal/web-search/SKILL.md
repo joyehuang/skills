@@ -1,7 +1,16 @@
 ---
 name: web-search
-description: Web search and page fetching via the Tavily API. Use whenever the user asks to search the web, look up current information, news, facts, find a URL, verify something online, or needs results from a search engine. Also covers fetching and extracting readable text from a specific page.
+description: Web search and page fetching. Two engines available — Tavily (keyword/time-sensitive, general search) and Exa (semantic/neural search + page fetch via MCP). Use whenever the user asks to search the web, look up current information, news, facts, find a URL, verify something online, or needs results from a search engine. Also covers fetching and extracting readable text from a specific page.
 ---
+
+## Engine choice (decide automatically, user does not specify)
+
+| Scenario | Engine |
+|---|---|
+| Semantic/research retrieval — hard to name keywords but know *what it is* | `web_search_exa` (MCP, exa server) |
+| Time-sensitive / general search — news, latest updates, fact-checking | Tavily (`search.sh` below; Exa's FreshQA is only ~24%) |
+| Page fetching (known URL, want clean markdown) | `web_fetch_exa` (MCP) preferred; Tavily extract or curl as fallback |
+| GitHub repos | GitHub API / raw.githubusercontent (not search engines) |
 
 # Web Search (Tavily)
 

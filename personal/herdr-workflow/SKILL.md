@@ -7,6 +7,20 @@ description: The user's preferred herdr workflow for spawning coding-agent works
 
 The user drives herdr this way. Follow it unless they say otherwise.
 
+## 0. 兜底规则（fallback rule）
+
+本 skill 是用户的工作流偏好 + 踩坑经验；**官方 skill 在 `~/.agents/skills/herdr-official/SKILL.md`**（herdrdev/herdr v0.8.2 官方版，195 行）。
+
+- **本 skill 没覆盖的情况**（新命令、报错、行为异常、生命周期状态不明确等）→ 读官方 skill，或直接查 `herdr <cmd> --help`（CLI 是命令语法权威）。
+- 官方 skill 的补充要点（本 skill 未写）：
+  - agent 生命周期：`idle`=就绪、`done`=后台工作完成后的 idle、`blocked`=审批/提问 UI、`unknown`=无法分类（不代表完成）
+  - `agent prompt` 从非工作状态发指令，5 秒内必须看到生命周期变化，否则返回 `agent_prompt_stalled`
+  - `--until` 仅用于状态特定等待（如等 blocked）；普通等待用 `--wait` 即可
+  - `agent send-keys <name> esc|ctrl+c` 逻辑键控
+  - `pane run` / `pane wait-output --match` 用于普通命令 + 等输出
+  - read source：`visible` / `recent` / `recent-unwrapped`（日志/转录优先）/ `detection`
+  - 安全：`--no-focus` 后台工作；不关自己没建的 workspace/pane；不 kill herdr 主进程；`herdr server stop` 只在用户明确要求时用
+
 ## 1. Open a workspace (worktree for code work)
 
 ```bash

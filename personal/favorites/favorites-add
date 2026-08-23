@@ -1,0 +1,105 @@
+#!/usr/bin/env python3
+"""
+favorites-add — 收藏夹自动收录工具
+
+用法:
+  favorites-add add --title "T" --url "https://..." [--cat course|article|project|company|mine] [--desc "..."] [--meta "..."] [--tags "a b c"]
+  favorites-add list [--cat course]
+  favorites-add rebuild            # 重新生成 index.html 并上传 R2
+  favorites-add url <url>          # 从 URL 自动提取标题/描述（需联网）
+
+设计: 供 pi agent 在对话中发现优质资源时自动调用（配合 skill 文档的触发规则）。
+不自动删除，只在 favorites.json 增量追加。
+"""
+import argparse, json, subprocess, sys, urllib.request, re
+from datetime import date
+from pathlib import Path
+
+BASE = Path.home() / "dev" / "favorites"
+DATA = BASE / "favorites.json"
+GEN = BASE / "gen_index_html.py"
+R2_KEY = "favorites/index.html"
+REPORT = Path.home() / ".agents" / "skills" / "publish-artifact" / "scripts" / "report.sh"
+
+VALID_CATS = {"course", "article", "project", "company", "mine"}
+
+def load():
+    return json.loads(DATA.read_text())
+
+def save(data):
+    DATA.write_text(json.dumps(data, ensure_ascii=False, indent=2))
+
+def cmd_add(args):
+    if not args.title or not args.url:
+        print("需要 --title 和 --url"); sys.exit(1)
+    cat = args.cat or "article"
+    if cat not in VALID_CATS:
+        print(f"cat 必须是 {sorted(VALID_CATS)}"); sys.exit(1)
+    data = load()
+    items = data["favorites"].setdefault(cat, [])
+    # 去重（同 url 或同标题）
+    for it in items:
+        if it.get("url") == args.url or it.get("title") == args.title:
+            print(f"已存在（{cat}: {it['title']}），跳过"); return
+    item = {
+        "title": args.title,
+        "url": args.url,
+        "meta": args.meta or "",
+        "desc": args.desc or "",
+        "date": date.today().isoformat(),
+        "tags": args.tags or "",
+    }
+    items.append(item)
+    save(data)
+    print(f"已添加 [{cat}] {args.title}")
+
+def cmd_list(args):
+    data = load()
+    for cat, items in data["favorites"].items():
+        if args.cat and cat != args.cat:
+            continue
+        print(f"\n## {cat} ({len(items)})")
+        for it in items:
+            print(f"  - {it['title']} | {it['url']}")
+
+def cmd_rebuild(args):
+    subprocess.run([sys.executable, str(GEN)], check=True)
+    env = dict(__import__("os").environ)
+    env["PATH"] = "/opt/homebrew/bin:" + env.get("PATH", "")
+    p = subprocess.run([str(REPORT), str(BASE / "index.html"), R2_KEY],
+                       capture_output=True, text=True, env=env)
+    if p.returncode != 0:
+        print("上传失败:", p.stderr); sys.exit(1)
+    print(p.stdout.strip().splitlines()[-1])
+
+def fetch_page_info(url):
+    """简易抓取 <title> 和 <meta description>（不求全，够用）"""
+    try:
+        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+        with urllib.request.urlopen(req, timeout=12) as r:
+            html = r.read(200000).decode("utf-8", "ignore")
+        title = re.search(r"<title[^>]*>(.*?)</title>", html, re.S | re.I)
+        desc = re.search(r'<meta[^>]+name=["\']description["\'][^>]+content=["\'](.*?)["\']', html, re.S | re.I)
+        return (title.group(1).strip()[:120] if title else url,
+                desc.group(1).strip()[:300] if desc else "")
+    except Exception as e:
+        return url, f"(抓取失败: {e})"
+
+def cmd_url(args):
+    t, d = fetch_page_info(args.url)
+    print(f"title: {t}")
+    print(f"desc: {d}")
+
+def main():
+    ap = argparse.ArgumentParser(description="收藏夹自动收录")
+    sub = ap.add_subparsers(dest="cmd", required=True)
+    p = sub.add_parser("add"); p.add_argument("--title", required=True); p.add_argument("--url", required=True)
+    p.add_argument("--cat", choices=sorted(VALID_CATS)); p.add_argument("--desc"); p.add_argument("--meta"); p.add_argument("--tags")
+    p = sub.add_parser("list"); p.add_argument("--cat")
+    sub.add_parser("rebuild")
+    p = sub.add_parser("url"); p.add_argument("url")
+    args = ap.parse_args()
+    {"add": cmd_add, "list": cmd_list, "rebuild": cmd_rebuild, "url": cmd_url}[args.cmd](args)
+
+if __name__ == "__main__":
+    main()

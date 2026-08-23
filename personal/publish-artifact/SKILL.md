@@ -21,6 +21,7 @@ bash ~/.agents/skills/publish-artifact/scripts/report.sh <file> [remote-key] [--
 ## HTML-first rules (user preference)
 
 - Generate reports as **HTML by default**, not Markdown — easier to share.
+- **Mobile-first is mandatory** (2026-08-13): templates are responsive — wide tables get wrapped in a scrollable `.table-wrap` (never squish the page), body is 16px with safe-area padding on phones. Verify at 375px viewport before delivering: `document.body.scrollWidth <= innerWidth` must hold and every `table` must sit inside a `.table-wrap`.
 - Chat/session export to HTML: `pi --export <session-file> <out.html>` (sessions are JSONL under `~/.pi/agent/sessions/`), then upload via report.sh.
 - Always keep a local copy (`~/artifacts/YYYY-MM-DD/` or next to the source) before/after uploading.
 

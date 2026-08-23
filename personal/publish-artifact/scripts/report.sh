@@ -38,5 +38,5 @@ case "$EXT" in
 esac
 
 LINK=$("$DIR/publish.sh" "$SRC" "$KEY")
-rm -f "$HTML"
+rm -f "${HTML:-}"   # HTML is only set on the md→html path; set -u would abort otherwise
 echo "$LINK"
