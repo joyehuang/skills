@@ -72,6 +72,7 @@ psql "<DATABASE_URL>" -c "SELECT id, nick, comment, status FROM wl_comment ORDER
 
 ## 注意事项
 - **先 dry-run** 确认解析正确，再正式执行（脚本会真实写入并 push）
+- 脚本完成后会**自动发 Telegram 通知**（经 ~/bin/notify-telegram.py，发到用户的 pi-telegram）——包含处理结果和线上链接
 - 若博客仓库有未提交改动，脚本会 stash——执行后检查 `git stash list`
 - 评论通知会发到用户 Telegram（waline postSave hook），收到通知即代表有新申请
 - 回复文案固定：「已添加你的友链，欢迎常来～ 🙌」（@对方）
