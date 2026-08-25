@@ -33,3 +33,10 @@ Consolidation of three scattered skill locations into this repo, 2026-08-12.
 1. Archive `joyehuang/joye-skills` on GitHub and point its README here.
 2. Optionally replace the live `~/.agents/skills/{web-search,publish-artifact,herdr-workflow}` directories with symlinks into `personal/` so there's one source of truth (recipe in the README). Do it one at a time and verify pi still loads each.
 3. Decide on one license across the repo.
+
+## Follow-up status (2026-08-25)
+
+1. ✅ **joye-skills archived** — `joyehuang/joye-skills` marked archived (read-only) on GitHub; its README now points here.
+2. ✅ **demo link updated** — README demo URL now points at `joyehuang.github.io/skills/...` (this repo's Pages) instead of the archived repo's Pages.
+3. ⏳ Symlink consolidation in `~/.agents/skills/` — still not done (each runtime skill remains authoritative; mirrors live in `personal/`).
+4. ⏳ License unification — still open (Apache-2.0 vs terminal-slide-deck's MIT).

@@ -107,7 +107,7 @@ Claude Code uses a different path (`~/.claude/skills/` globally, `.claude/skills
 
 | Skill | What it does |
 | --- | --- |
-| [`terminal-slide-deck`](./terminal-slide-deck) | Single-file HTML slide decks in a cyan-on-near-black terminal aesthetic, with a bespoke data-viz component library. ([demo](https://joyehuang.github.io/joye-skills/skills/terminal-slide-deck/references/demo-reference.html)) |
+| [`terminal-slide-deck`](./terminal-slide-deck) | Single-file HTML slide decks in a cyan-on-near-black terminal aesthetic, with a bespoke data-viz component library. ([demo](https://joyehuang.github.io/skills/terminal-slide-deck/references/demo-reference.html)) |
 
 ### Users & social
 
