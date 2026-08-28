@@ -1,20 +1,27 @@
 ---
 name: web-search
-description: Web search and page fetching. Three engines — Tavily (keyword/time-sensitive), Exa (semantic + deep page content via MCP), and Parallel (broad multi-source aggregation with dates). Use whenever the user asks to search the web, look up current information, news, facts, find a URL, verify something online, or needs results from a search engine. Also covers fetching and extracting readable text from a specific page.
+description: Web search and page fetching. Four engines — TinyFish (free default: precise/fresh/Chinese search + page fetch), Tavily (fallback keyword/time-sensitive), Exa (semantic + person/entity graphs via MCP), Parallel (broad multi-source aggregation). Use whenever the user asks to search the web, look up current information, news, facts, find a URL, verify something online, or needs results from a search engine. Also covers fetching and extracting readable text from a specific page.
 ---
 
 # Engine routing (decide first, then pick the tool)
 
-**Do not default to Tavily.** Pick the primary engine by task type, then use the fallback for cross-check.
+**默认层是 TinyFish（免费），不要一上来就烧 Tavily credits。** 按任务类型选引擎：
 
 | Task type | Primary engine | Why | Fallback / cross-check |
 |---|---|---|---|
-| **Latest news / recent events / "what's new"** | **Parallel** (`web_search`, parallel-search MCP) | Returns publish dates + official sources; best freshness (实测 2026-08) | Tavily (also time-sensitive, but may surface older posts without dates — always check the date) |
-| **Semantic retrieval — fuzzy memory, "something like X", concept explainer** | **Exa** (`web_search_exa`, exa MCP) | Semantic matching + full-page highlights, deepest content (实测 returns full article body) | Tavily keyword search |
-| **Broad synthesis / multiple viewpoints / survey** | **Parallel** (`web_search` with multiple `search_queries`) | Multi-source aggregation in one call; good for "综述/多观点" | Exa |
-| **Precise origin-locating — "find THE article/post that said X"** | **Tavily** (`search.sh`) + **GitHub API/code search** when repo docs suspected | Keyword precision | Exa semantic for fuzzy recall of the same origin |
-| **Known URL → fetch content** | **Exa `web_fetch_exa`** | Clean markdown, full page | Tavily extract / curl fallback |
+| **精确检索（默认首选）— 实体/报错/产品/新闻关键词** | **TinyFish** (`scripts/tinyfish.sh search`) | 免费（30次/分）、延迟 ~1.5s、中文 5/5、结果全结构化（2026-08-29 两轮实测：免费版≈90% Tavily，幻觉零） | Tavily（结果可疑/为空时兜底） |
+| **Fetch 网页内容（X 推文/普通页/文档）** | **TinyFish** (`scripts/tinyfish.sh fetch`) | 实测能抓 X 推文全文（替代大部分 ego-browser 场景）、干净 markdown | Exa `web_fetch_exa` / curl / ego-browser（小红书、登录门、需交互的页） |
+| **时效新闻 / 多源综述** | **Parallel** (`web_search`, parallel-search MCP) | dates + 官方源，多 query 聚合 | TinyFish / Tavily |
+| **语义/模糊回忆/人物图谱** | **Exa** (`web_search_exa`, exa MCP) | 语义匹配 + 人物/技术链递得最深（多跳实测 T2/T5 最强） | TinyFish；⚠️ Exa 中文复杂题会空手 |
+| **语义/模糊回忆类兜底** | **Tavily** (`search.sh`) | 关键词精确度兜底 | — |
 | **Code repo internal docs / non-default-branch files** | **GitHub API / raw / code search directly** — do NOT use web search engines | Web search engines cannot index non-default branches or repo-internal paths (实测教训 2026-08-23) | — |
+
+**TinyFish 特有防线**：无结果时会硬凑结果（如填 YouTube）——拿到结果后做相关性复核，可疑就换 Tavily。用量已接监控（每晚 Telegram 日报）。
+
+**用量日志（每晚 websearch-daily 日报的数据源）**：`scripts/tinyfish.sh` 和 `scripts/search.sh` 已自动记录。Exa / Parallel 走 MCP 无法自动记录——**每次调 `web_search_exa` / `web_fetch_exa` / `web_search`(parallel) 后**，顺手执行一行：
+```bash
+echo "$(date '+%Y-%m-%d %H:%M:%S'),exa,search" >> ~/.config/websearch-usage/usage.log   # parallel 则把 exa 换成 parallel
+```
 
 ## Hard rules (from the 2026-08-23 search-lessons post-mortem)
 

@@ -46,6 +46,10 @@ fi
 
 BODY=$(python3 -c 'import json,sys; print(json.dumps({"query": sys.argv[1], "search_depth": sys.argv[2], "max_results": int(sys.argv[3]), "include_answer": True}))' "$QUERY" "$DEPTH" "$MAX")
 
+# usage log for nightly websearch-daily report
+mkdir -p "$HOME/.config/websearch-usage" 2>/dev/null || true
+echo "$(date '+%Y-%m-%d %H:%M:%S'),tavily,search" >> "$HOME/.config/websearch-usage/usage.log" 2>/dev/null || true
+
 RESP=$(curl -sS --max-time 30 https://api.tavily.com/search \
   -H "Authorization: Bearer $KEY" \
   -H "Content-Type: application/json" \
