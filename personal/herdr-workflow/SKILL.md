@@ -43,6 +43,8 @@ until herdr agent start some-bug --kind claude --pane "$PANE" --timeout 90000 2>
 
 - Model goes **after `--`**: `-- --model claude-opus-5`
 - **Prefer auto mode for claude** (user's default since 2026-08-18): append `--permission-mode auto` after `--`, e.g. `-- --model claude-opus-5 --permission-mode auto`. Auto mode lets claude auto-run lower-risk commands without blocking (verified: runs commands, creates files, zero prompts). Without it, in-pane claude sits on manual mode and blocks on every permission prompt — you'd have to babysit approvals.
+- **Codex 必须用 full access mode（用户要求 2026-08-29，与 claude auto mode 同级默认）**: append `--dangerously-bypass-approvals-and-sandbox` after `--`, e.g. `-- --model gpt-5.6-sol -c model_reasoning_effort='"xhigh"' --dangerously-bypass-approvals-and-sandbox`。不带它 codex 会每条命令弹批准，后台任务直接卡死（2026-08-28 教训：忘带这个参数导致被迫写轮询+白名单自动批脚本打补丁）。配套原则：等待用 herdr 内置阻塞 wait（`herdr agent wait <name> --until done` / `agent prompt --wait`），不要手写轮询循环。
+  - 启动时仍会有项目信任确认（"Do you trust the contents"）→ 发 `1` + Enter 一次
   - First run asks "Make auto mode your default permission mode?" → answer Yes (option 1) once; it persists.
   - Also handles the project trust prompt at startup: send `1` + Enter once when it asks "Is this a project you created or one you trust?"
   - Alternative for tighter control: `--permission-mode acceptEdits` (auto-accepts edits, still asks for risky bash) or `--settings <file>` with a `permissions.allow` list.
