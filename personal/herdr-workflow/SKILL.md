@@ -116,6 +116,37 @@ nohup bash /tmp/relay.sh > /tmp/relay.log 2>&1 &
 - `--wait` 被 abort ≠ 任务没在跑，先查 `herdr agent get <name>` 的 `agent_status` 再判断
 - 阶段完成标准 = prompt 里要求的 `DONE_XXX` 标记出现，不是时间到了就以为完成
 
+## 6. 后台任务协议（任务登记簿 + 验收闸门，2026-09-04 与用户定稿）
+
+后台任务 = subagent 模式：我是 orchestrator，herdr workspace 是 worker subagent，我是质量验收闸门。用户默认只听到「做完了」和需要拍板的事。
+
+### 任务分类（接到任务先判断，前台 or 后台）
+
+- **前台**：需要中途与用户交互、或几分钟内能完的问答/小改。
+- **后台**：能独立完成、有明确验收标准的活（改代码/跑调研/做报告/长任务烧 token）。
+- 判断不了就默认前台，或一句话向用户确认；用户说「放后台」/「前台做」优先。
+
+### 登记簿（每次派后台活必写）
+
+- 文件：`~/.config/agent-tasks/registry.json`（JSON 索引，非真相源）。
+- 字段：id（`dt-YYYYMMDD-序号`）、instruction（用户原话）、workspace、type（herdr/pid）、done_marker（`DONE_XXX`）、**acceptance（验收标准，派活时写好）**、artifacts、status、iterations。
+- 派活确认消息顺带把验收标准给用户过目（「已派后台：workspace X，验收标准 Y」），不同意当场改。
+- 登记簿统一覆盖所有后台活（herdr 的、裸 claude -p 跑批的），不另立账。
+
+### 状态 = 证据推导，不是记出来的
+
+- **JSON status 只是上次对账的缓存**；真相源：`herdr agent list --json` 的 agent_status、pane 输出里的 DONE 标记、worktree git log、产物文件。任何时刻处理某任务先现场对账。
+- **done ≠ 做好**：done 只表示「看到完成标记」，verified 要按 acceptance 实际检查产物后才算。
+- 生命周期：dispatched → running → done（标记出现）→ verified（验收通过）→ reported（已汇报用户）；不通过 → rework（发返工 prompt，iterations+1）。
+- **回炉上限 2 次**（用户定稿）：第二次还坏就升级给用户，附试过什么、卡在哪。
+
+### 通知链路（三层保障）
+
+1. **推送**：relay 脚本检测到 DONE 标记 → `python3 ~/bin/notify-agent.py "dt-xxx 完成…" "来源"`（写 spool，relay-notify 扩展注入我会话，忙时入队闲时补发）。
+2. **拉取**：我处理到该任务时查 herdr 实况，不信任 JSON。
+3. **兜底**：`com.joye.task-watchdog`（launchd，180s）扫 active 任务对账 herdr 状态，跳变即更新登记 + 注入。推送丢了最多晚一个周期。
+- 损坏可丢弃：registry 全部条目可从证据重建。
+
 ## Artifact convention (user's fixed preference)
 
 - **Every report/artifact defaults to HTML and is delivered as a directly clickable https link** — never md attachments, never raw paths.
