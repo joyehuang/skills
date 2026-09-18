@@ -1,0 +1,9 @@
+{
+  "upstream": "herdrdev/herdr",
+  "version": "v0.9.1",
+  "source": "https://github.com/herdrdev/herdr/blob/v0.9.1/skills/herdr/SKILL.md",
+  "sha256": "03855a7a1f9d0aa1ba6444fed2e4971adf796e91e73001d8f2472f5f9e5f659f",
+  "checkedOn": "2026-09-18",
+  "matchesReleaseBinarySkill": true,
+  "runtimeNote": "Installed client/server still0.8.0; updater refuses in-session execution. New binary staged, not installed."
+}

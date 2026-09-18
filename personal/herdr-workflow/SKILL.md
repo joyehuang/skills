@@ -1,160 +1,187 @@
 ---
 name: herdr-workflow
-description: The user's preferred herdr workflow for spawning coding-agent workspaces (git worktree + claude/codex agents + prompts from files). Use whenever driving herdr to start agents, create workspaces, or coordinate agent tasks for this user. Also covers the R2 artifact-publishing convention (HTML-first outputs).
+description: 用户的 Herdr 协作工作流：在明确要求操作 Herdr 时，按授权创建 pane/worktree、启动 Claude/Codex 并从文件提交任务。区分 Herdr 执行器与通用后台任务协议；不要仅因任务适合后台执行就擅自创建 Herdr 拓扑或重启会话。
 ---
 
-# herdr Workflow (user's established pattern)
+# Herdr 工作流与后台任务的边界
 
-The user drives herdr this way. Follow it unless they say otherwise.
+同步基线：Herdr **v0.9.1**，2026-09-18。这是文档基线，不代表当前运行 server 已升级。
 
-## 0. 兜底规则（fallback rule）
+## 0. 先分清四件事
 
-本 skill 是用户的工作流偏好 + 踩坑经验；**官方 skill 在 `~/.agents/skills/herdr-official/SKILL.md`**（herdrdev/herdr v0.8.2 官方版，195 行）。
+- **后台任务**：任务在当前对话回合结束后继续执行，让主 agent 能继续接收用户消息。它是一种调度方式，不是 Herdr 的同义词。
+- **执行器**：可以是 Herdr pane 内的 Claude/Codex，也可以是独立 `codex exec` 子进程。两者都是真实执行；Herdr 不会自动显示未在其 pane 中启动的进程。
+- **任务协议**：`~/bin/task_protocol.py`、私有 task/run 记录、完成事件、独立验收和真实交付收据。这层跨执行器工作，不由 Herdr 的 `done` 替代。
+- **skill**：给 agent 的操作说明，不是守护进程、调度器或自动接线。修改 skill 不会自动迁移旧任务，也不会改变已经启动的进程。
 
-- **本 skill 没覆盖的情况**（新命令、报错、行为异常、生命周期状态不明确等）→ 读官方 skill，或直接查 `herdr <cmd> --help`（CLI 是命令语法权威）。
-- 官方 skill 的补充要点（本 skill 未写）：
-  - agent 生命周期：`idle`=就绪、`done`=后台工作完成后的 idle、`blocked`=审批/提问 UI、`unknown`=无法分类（不代表完成）
-  - `agent prompt` 从非工作状态发指令，5 秒内必须看到生命周期变化，否则返回 `agent_prompt_stalled`
-  - `--until` 仅用于状态特定等待（如等 blocked）；普通等待用 `--wait` 即可
-  - `agent send-keys <name> esc|ctrl+c` 逻辑键控
-  - `pane run` / `pane wait-output --match` 用于普通命令 + 等输出
-  - read source：`visible` / `recent` / `recent-unwrapped`（日志/转录优先）/ `detection`
-  - 安全：`--no-focus` 后台工作；不关自己没建的 workspace/pane；不 kill herdr 主进程；`herdr server stop` 只在用户明确要求时用
+**当前事实（2026-09-18核对）**：近期 Jev、QQbot 修复等实际走 `task_protocol → Python runner → codex exec`，并未创建对应 Herdr pane。此前本 skill 把后台任务一概写成 Herdr workspace，与事实不一致。本版澄清两条路径，不把历史任务伪装成 Herdr，也不据此擅自重跑或迁移它们。
 
-## 1. Open a workspace (worktree for code work)
+本文件包含通用协议是历史组织方式，不意味着读取第6节就获准操作 Herdr。未来若拆出独立后台任务 skill，必须保持协议和事实来源一致，而不是另建一套登记簿。
 
-```bash
-WS=$(herdr worktree create --cwd "$PWD" \
-       --branch fix/some-bug --base main \
-       --label "P1 some-bug" --no-focus \
-     | jq -r '.result.workspace.workspace_id')
+### 权威来源
 
-PANE=$(herdr pane list --workspace "$WS" | jq -r '.result.panes[0].pane_id')
-```
+1. 运行时 CLI：先看 `herdr --help`、相关命令组和 `--help`，它是参数语法权威。
+2. 官方 skill：`~/.agents/skills/herdr-official/SKILL.md`，同步自 v0.9.1，保持上游原文；可由匹配版本的 `herdr --skill` 校验。
+3. 本 skill：用户偏好、账号边界和独立验收要求。
+4. 任务协议细节：`~/dev/pi-agent-config/docs/delivery-watchdog-fix.md`、`python3 ~/bin/task_protocol.py --help`。
 
-- `--branch <name> --base <base>` for real code work (git worktree isolation).
-- For read-only research/scratch use plain `herdr workspace create --cwd "$PWD" --label "..." --no-focus` (no worktree — research produces no git changes).
+不要用裸 `herdr` 探测——它会启动/附着 TUI；不要省略 mutating 子命令参数试探，有些命令带默认值就会执行。
 
-## 2. Start the agent (retry until pane ready)
+## 1. 何时使用 Herdr
+
+只有用户明确提到 Herdr，或明确要求通过 Herdr 查看/控制 pane、workspace、agent 时，才进入 Herdr 控制流程。先确认自己确实在受管理的 pane 中：
 
 ```bash
-until herdr agent start some-bug --kind claude --pane "$PANE" --timeout 90000 2>/dev/null; do sleep 1; done
+test "${HERDR_ENV:-}" = 1
+herdr --help
+herdr status
 ```
 
-- Model goes **after `--`**: `-- --model claude-opus-5`
-- **Prefer auto mode for claude** (user's default since 2026-08-18): append `--permission-mode auto` after `--`, e.g. `-- --model claude-opus-5 --permission-mode auto`. Auto mode lets claude auto-run lower-risk commands without blocking (verified: runs commands, creates files, zero prompts). Without it, in-pane claude sits on manual mode and blocks on every permission prompt — you'd have to babysit approvals.
-- **Codex 必须用 full access mode（用户要求 2026-08-29，与 claude auto mode 同级默认）**: append `--dangerously-bypass-approvals-and-sandbox` after `--`, e.g. `-- --model gpt-5.6-sol -c model_reasoning_effort='"xhigh"' --dangerously-bypass-approvals-and-sandbox`。不带它 codex 会每条命令弹批准，后台任务直接卡死（2026-08-28 教训：忘带这个参数导致被迫写轮询+白名单自动批脚本打补丁）。配套原则：等待用 herdr 内置阻塞 wait（`herdr agent wait <name> --until done` / `agent prompt --wait`），不要手写轮询循环。
-  - 启动时仍会有项目信任确认（"Do you trust the contents"）→ 发 `1` + Enter 一次
-  - First run asks "Make auto mode your default permission mode?" → answer Yes (option 1) once; it persists.
-  - Also handles the project trust prompt at startup: send `1` + Enter once when it asks "Is this a project you created or one you trust?"
-  - Alternative for tighter control: `--permission-mode acceptEdits` (auto-accepts edits, still asks for risky bash) or `--settings <file>` with a `permissions.allow` list.
-- `--timeout 90000` (90s) for startup.
-- **Agent name is global per terminal**: if `agent start claude` fails with `agent_name_taken`, another agent in that terminal already uses the name — use a unique `<NAME>` (e.g. `dash-react`) instead of the default.
-- **READ THE SKILL FIRST**: before driving herdr, read this skill (and memory) — don't rely on recollection of the workflow.
+- 检查失败就不要从外部控制用户聚焦的 Herdr 会话。
+- **headless worker 不等于 Herdr pane**。启动独立进程时应移除继承的 `HERDR_*` 定位环境，不能借父进程遗留变量冒充主 pane。
+- CLI/client 与运行中 server 的版本可能不同；先看 `herdr status`，新二进制安装成功不等于新 server 功能已生效。
+- `herdr update` 若提示须在 Herdr 外、detach 后执行，就停在这个保护边界；不要伪造环境变量绕过，也不要杀当前主会话。可先准备并校验安装包，明确报告仍待安全更新。
+- 不默认使用实验性 `--handoff`。用户授权一般更新不等于同意冒险迁移所有活跃 pane；需明确迁移范围和保留/回滚证据。
 
-## 3. Prompt from a FILE, never inline
+## 2. 拓扑、远程范围与身份
+
+默认沿用当前目录、当前 tab 的 sibling pane，不额外创建 workspace/worktree。用户已授权隔离工作区时再创建：
 
 ```bash
-herdr agent prompt some-bug "$(cat prompts/some-bug.txt)" --wait --timeout 900000
+herdr pane layout --pane "$HERDR_PANE_ID"
+herdr pane split --current --direction right --cwd "$PWD" --no-focus
+
+# 已授权隔离代码工作区时，读取实际 JSON 返回的 ID
+herdr worktree create --cwd "$PWD" --branch fix/example --base main \
+  --label "example" --no-focus
 ```
 
-- Inline prompts lose Chinese quotes, backticks, newlines to shell quoting.
-- Wait a few seconds after `agent start` before prompting — claude may still be on its welcome screen and the prompt gets dropped (check terminal_title changes to the task title as confirmation it was received).
-- Ask for a completion marker in the prompt ("print exactly DONE_XXX at the end").
+- 宽 pane 向右，窄/高 pane 向下，避免连续切成不可用细条。
+- `workspace create` 返回 `.result.workspace/.tab/.root_pane`；`pane split` 返回 `.result.pane`。ID 不猜、不从侧栏序号推导。
+- 优先 `--current` 或显式 pane ID，不依赖 UI 当前焦点。v0.9.1 的 `pane split` 缺省优先 caller，但其他命令未必如此。
+- pane move 后读取新 ID；旧 workspace-qualified ID 不可继续当通用目标。
+- `workspace close --group` 会连同关联 worktree workspaces 一起关闭，不是绕开 `workspace_group_close_required` 的通用办法。
+- `--trust-repository` 是本次请求的 Git 信任授权，不能作为修复报错的默认开关。
 
-## 4. Read results & close
+### v0.9.1：保存的 SSH machine
 
 ```bash
-herdr agent read <name> --source recent-unwrapped --lines 200
-herdr pane close <pane_id>   # only panes/workspaces you created
-herdr workspace close <ws>   # after user is done with it
+herdr machine list --json
+herdr --machine <已保存的label或ID> agent list
+herdr --machine <同一个label或ID> pane list
 ```
 
-## 5. Multi-stage relay tasks (自动接力，不靠盯梢)
+- machine selector 是 enabled 的保存配置 ID 或唯一、区分大小写的标签，不是任意 SSH 主机名。
+- 每次发现、读写、等待、清理都保持同一 `--machine`；本地与远程可以同时有 `w1:p1` 或同名 agent。
+- 不与 `--session` / `--remote` 混用；继承的本地 ID、`--current` 不能指定远程 pane。
+- 两端安装及远端 server 必须支持相应 API。转发不会安装、启动或重启 server，也不会失败后退回 Local。
+- 连接失败不等于远端操作没执行，先对账再重试。
+- 添加/删除/启停 machine 配置、替换不兼容 server，须有用户授权。本次文档更新不授权任何远程部署。
 
-> 2026-08-20 教训：trajectory-panel v2 完成后 workspace 闲置 3 小时，v3 直到用户问起才开始。根因：`--wait` 被 abort 后误判“还在跑”，没轮询状态也没检测完成标记。**多阶段接力必须脚本化自动触发，不能靠 agent 人工盯梢。**
+## 3. 启动执行者：模型、账号、prompt
 
-### 方式 A：有证据的阶段接力
+### 执行配置
 
-终端可能回显 prompt 中的 DONE，不能 grep 命中就宣告成功。使用下节统一 runner：核对当前 task/run 的退出码、实际 stdout 独立 marker 行、新产物及业务 reason/error；需要验收时，主 agent 验收后才继续已授权阶段。
-
-- herdr wait、agent_status=done 或 pane 命中仅为观察，不等于目标完成。
-- 未接入 runner 的历史任务保留 needs_reconciliation，禁止猜测退出码。
-- 等待只在后台 relay 中进行，不能在当前回合 sleep 长轮询。
-
-### 方式 B：多阶段合并成一个连续任务
-
-把 v1+v2+v3 的完整需求写进**一个 prompt**，让一个 agent 一口气做完，只打一个最终 `DONE_XXX`。适合阶段间耦合紧、中途不需人工确认的任务。缺点是单次运行时间长、中途不能插入新需求。
-
-### 方式 C：herdr 内置 wait（无人值守时，2026-08-23 修正）
-
-**不需要手写轮询脚本** —— herdr 内置了完整的等待机制：
+- 后台执行默认 **Codex GPT-6 Astra，reasoning low**；仅用户指定时覆盖，不开 fast mode。这不是修改主 Pi 模型的许可。
+- 个人任务优先 agent5x（`~/.config/codex-agent`）；明确额度耗尽后，可按用户既有授权使用 personal20x（`~/.codex`）。个人 Plus 与工作账号不在该备用授权里。
+- Herdr 中应在**目标 shell pane**设置选定的 `CODEX_HOME` 并核对；不要假定给控制 CLI 加临时环境变量就会传给 server 侧 pane。
+- 用户指定 Claude 模型时使用 Claude Code，不启动另一个 Pi 替代。
+- Codex 用用户已确定的 full access 参数；Claude 使用 auto permission mode。权限模式不扩大用户任务授权和数据边界。
 
 ```bash
-# 后台跑一个接力脚本，每阶段用 herdr 内置 wait 等完成，跑完才退出
-cat > /tmp/relay.sh << 'EOF'
-herdr agent wait <name> --until done --timeout 1800000   # 仅等待状态，不证明业务成功
-# 按下节核对当前 run 的 result 和 acceptance；通过后才继续下一阶段。
-EOF
-nohup bash /tmp/relay.sh > /tmp/relay.log 2>&1 &
+herdr agent start example --kind codex --pane <实际pane-ID> --timeout 90000 -- \
+  --model gpt-6-astra -c model_reasoning_effort='"low"' \
+  --dangerously-bypass-approvals-and-sandbox
+
+herdr agent start example-claude --kind claude --pane <实际pane-ID> --timeout 90000 -- \
+  --model claude-opus-5 --permission-mode auto
 ```
 
-关键点：
-- `agent prompt --wait` / `agent wait` 本身就等到 settled 状态（idle/done/blocked）才返回，**无需轮询**
-- 等特定输出用 `herdr pane wait-output <pane> --match "DONE_XXX" --timeout <ms>`
-- `--wait` 被 bash 工具 timeout 截断 ≠ 任务没在跑 —— 把带 `--wait` 的命令放后台（nohup）跑，完成读日志即可
-- 多阶段都写进一个脚本，最后一步完成后可加通知（如 notify-telegram.py）
+- 模型和原生 agent 参数放在 `--` 后。
+- 新 pane 可能暂时 `agent_pane_busy`：用 until 重试，但要有次数上限，且**只重试已确认的瞬时 busy**，不能吞掉其他错误无限循环。
+- `agent start` 成功会等待检测到对应 agent 且就绪。若返回 `agent_not_ready`，名字可能已注册，先 `get/read`；不可重复 start。
+- 正式 prompt 前确认 ready/idle，必要时读欢迎页或信任页，避免 prompt 丢失。未知仓库/权限对话不盲按确认。
+- agent 名称在目标 server 的存活 agent 中必须唯一，使用有任务意义的名字。
 
-### 铁律
+### Prompt 从文件读取
 
-- 承诺“我收尾/我盯着”必须伴随实际保障机制（herdr 内置 wait/接力脚本），否则不说
-- `--wait` 被 abort ≠ 任务没在跑，先查 `herdr agent get <name>` 的 `agent_status` 再判断
-- 阶段完成标准 = 当前 run 的退出码 + 实际 stdout 标记 + 新产物 + 业务结果；prompt 回显和时间经过均不算证据
+```bash
+herdr agent prompt example "$(cat /absolute/private/prompt.txt)" --wait --timeout 900000
+```
 
-## 6. 后台任务协议（task/run + 验收 + 真实签收，2026-09-08 已激活）
+- 不把复杂中文、引号、反引号和换行直接塞进命令行。
+- 派发回合只确认真正开始后就结束，不等长任务完成。
+- 上面的阻塞等待放进后台 relay/runner，不占住主对话回合。
+- v0.9.1 的成功提交仅说明文本和 Enter 已写入，不代表模型已开始。
+- `--wait` 从非 working 状态提交后，会在最多5秒内要求看到 working/blocked；idle/done/会话变化不能冒充启动活动。
+- 超时包含提交时间；`agent_prompt_stalled` 或 timeout **不证明未投递**。先 `get/read` 对账，不能盲目重发。
 
-后台任务 = subagent 模式：我是 orchestrator，herdr workspace 是 worker subagent，我是质量验收闸门。用户默认只听到「做完了」和需要拍板的事。
+## 4. 等待、读取与清理
 
-### 任务分类（接到任务先判断，前台 or 后台）
+- 普通 `agent prompt --wait` / `agent wait` 等待 settled；只在特定状态需求才加 `--until blocked` 等。
+- `idle` / `done` 都是就绪状态；CLI用 server seen 状态区分，各 TUI 自有已读视图，显示可能不一致。
+- `blocked` 是批准/问答 UI；`unknown` 不是完成。Herdr生命周期不是业务验收。
+- 日志优先 `recent-unwrapped`，需要颜色证据才 `--format ansi`。普通 shell/test/server 走 pane 命令，不冒充 agent。
+- 新版可对部分 idle agent 收集 alternate-screen 应用历史并恢复视口，但不是所有输出都能找回。扩大 read 仍无结果时，才让该 agent 将完整回复写文件；别靠滚屏截图猜。
+- 技术调研/代码任务要求产物文件是我们自己的交付契约，与“终端回读失败才要求转录文件”不同。
+- 用完只关闭自己创建且已完成的 pane/workspace；dirty、未推送、其他人的窗口先保留。不要 stop 主 server、kill Herdr 主进程或用 `--group` 批量绕过保护。
 
-- **前台**：需要中途与用户交互、或几分钟内能完的问答/小改。
-- **后台**：能独立完成、有明确验收标准的活（改代码/跑调研/做报告/长任务烧 token）。
-- 判断不了就默认前台，或一句话向用户确认；用户说「放后台」/「前台做」优先。
+## 5. 接力必须有机制
 
-### 登记与统一 runner（所有后台活，不另立账）
+- 发完任务不等于会自动收到结果。每次承诺后台收尾必须有 runner 结果事件、登记簿和 watchdog。
+- Herdr wait 只观察生命周期；`DONE_XXX` 可能来自 prompt 回显，不能单靠 grep 宣告成功。
+- 多阶段任务可合并成一个连续执行，或后台 relay 等待后检查实际 run 结果再接下一阶段。
+- 禁止在主回合 sleep 长轮询。Herdr executor 使用内置 wait；headless executor 等实际子进程退出，不假造 Herdr 状态。
 
-- 派活确认消息仍必须带 acceptance 给用户过目；后台默认 herdr subagent，用户只需一个主 agent 入口。本协议不授权新 workspace、模型测试、拓扑或模型默认值变更。
-- 私有目录 `~/.config/agent-tasks/` 保存 registry/outbox/inbox、不可变 runs 结果及签收证据；**这些是持久证据，不得说损坏可丢弃**。status 是观察结果，不能直接改成完成。
-- `python3 ~/bin/task_protocol.py register TASK --spec PRIVATE_JSON`：spec 含 instruction、acceptance、artifacts、done_marker、type、route；Herdr 加 agent_name/workspace_id/pane_id。
-- 每次执行先 `start-run TASK --run-id RUN`，再 `run TASK RUN -- ABSOLUTE_COMMAND ARGS`。worker 从 TASK_ID/TASK_RUN_ID/TASK_RESULT_PATH 取身份，写匹配的 business JSON（reason/error），实际 stdout 打印独立 marker 行。
-- `result TASK RUN` 核对退出码、PID 出生身份、产物 size/mtime/hash/freshness、marker、reason/error。goal_complete 与 batch_finished 分开；空/旧产物、缺标记、预算边界、read_error/http_error 都不证明成功。
-- 禁止直接覆盖 registry；所有 writer 走协议锁和原子操作。元数据修改使用带 expected-hash 的 update；flock 不会保护不守锁的旧 writer。
+## 6. 通用后台任务协议（两种执行器共用）
 
-### 状态与独立验收
+### 先分类，再派发
 
-- **ready_for_review ≠ 做好**。收到 task/run/event 先 inspect 对账，读当前 run 结构化结果，再按 acceptance 实查，不能只复述 worker 或回复收到。
-- Herdr 状态从实际 `result.agent.agent_status` 读取；working 保持运行态，未知/查询错误只保留观察。终端 done 或 prompt 回显不能补造 runner 退出码。
-- 通过：`verify TASK RUN --evidence FILE`；失败加 `--reject`。最多返工两次，第二次仍失败就升级用户，不无限开跑。
-- 验收通过继续已经授权的步骤；发最终报告前用 prepare-report 绑定正文 hash、目标及验收。发送后用 report 关联真实 sender/bridge 账本。没有匹配 message_id、结果 unknown 或无签收，不得标 reported。
-- 本事件处理另用 `ack EVENT CLAIM handled --evidence FILE`；enqueued 只代表注入尝试，不等于 handled/verified。claim 改变先 inspect。
+- 前台：需要用户中途交互，或很短的读查/小配置。
+- 后台：能独立执行的开发、修复、研究。必要派发和启动确认后立刻结束主回合。
+- 用户明确指定执行器、模型、位置时按其授权；只说“后台”不自动授权新 Herdr 拓扑、远程机器、生产权限或付款。
+- 研究任务要允许基于证据扩展问题、做反例和公平对照，不把它缩成固定开发清单；已有预算授权不因旧试用配置被悄悄收紧。
 
-### 通知三层保障与边界
+### 登记与执行
 
-1. **推送**：结构化 runner 结果与稳定 task/run/phase outbox 同事务提交；notify-agent 使用 --task-id/--run-id/--event-id/--result-path/--route。同事件双生产幂等，不同 run 不吞。
-2. **拉取**：主 agent 接续时现场 inspect，检查结果、claim/lease、验收和真实签收。
-3. **兜底**：原 launchd `com.joye.task-watchdog` 每 180 秒对账，独立重试 agent/Telegram 两个目标；超时生成稳定提醒，不假装目标完成。无 owner/持续错误时不能保证一个周期内送达。
+私有目录 `~/.config/agent-tasks/` 保存 registry/outbox/inbox、不可变 run 结果和交付证据；不能称为可丢弃缓存。所有 writer 经协议锁/原子更新，不直接改 JSON 状态。
 
-- 用户直达 Telegram 兜底默认保留，不擅自关；待验收与已验收明确区分。失败 backoff，未知 ACK 人工对账，绝不盲重发。
-- Relay 仅向当前 run-pi.sh 主进程实际拥有的 profile/session/thread 注入，宿主及队列均须 idle；无 owner 留 pending。当前 getBranch 持久输入支持去重，旧分支不能抑制新分支。原 handling deadline 后一次稳定恢复提示，仍无证明则 needs_attention，不无限续租。
-- 跨进程崩溃恢复采用至少一次注入 + 幂等对账，不承诺 exactly-once。未发送的过时 run/阶段通知可 superseded，已在发送或 unknown 的不确定性必须保留。
-- notify-agent 旧 `TEXT [SOURCE]` 与 `queued DIGITS-DIGITS.json` 兼容，该字符串只是私有 inbox 签收映射，不再是旧 spool 文件。旧调用方忽略退出码/源业务提前标 seen 的问题不能靠 CLI 兼容自动修复。
-- 旧任务（包括有 run_id 却无有效 runs metadata）不批量宣告成功/失败、不重放历史通知。先人工读证据，再以 task_hash 和 inspection JSON 显式 adopt-legacy 或 close-legacy；closed_legacy 不冒充 verified/reported。pending 旧 .json 导入幂等并保留原件，.done 不自动重放。
+```bash
+python3 ~/bin/task_protocol.py register TASK --spec /private/spec.json
+python3 ~/bin/task_protocol.py start-run TASK --run-id RUN
+python3 ~/bin/task_protocol.py run TASK RUN -- /absolute/worker ARGS
+python3 ~/bin/task_protocol.py result TASK RUN
+```
 
-具体 CLI、签收格式及安全部署/回滚见 `~/dev/pi-agent-config/docs/delivery-watchdog-fix.md`。主 agent 负责独立验收、上线与生产观察。
+- spec：instruction、acceptance、artifacts、done_marker、type、route。
+- Herdr 额外记录实际 agent/pane/workspace；远程操作同时记录 machine/session 范围。headless 记录命令、PID出生身份、cwd、独立账号配置，不填虚构的 Herdr ID。
+- worker 从 TASK_ID/TASK_RUN_ID/TASK_RESULT_PATH 写匹配 business JSON；实际 stdout 单独打印完成标记。
+- 退出码、当前run标记、产物 freshness/hash、业务 reason/error 一起核对。`goal_complete` 与 `batch_finished` 分开；API错误、额度耗尽或未完成项不自动当成功。
 
-## Artifact convention (user's fixed preference)
+### 独立验收与真实交付
 
-- **Every report/artifact defaults to HTML and is delivered as a directly clickable https link** — never md attachments, never raw paths.
-- One-shot pipeline: `bash ~/.agents/skills/publish-artifact/scripts/report.sh <file> [--title T]` (md → styled HTML → R2 upload → prints link). Reply with `[label](link)` Markdown links in Telegram.
-- Chat/session exports to HTML when sharing: `pi --export <session-file> <out.html>`.
-- Local copies always kept in `~/artifacts/YYYY-MM-DD/` (or alongside the report) before/after upload.
+- `ready_for_review` ≠ 做好。主 agent 先 inspect/result，再按 acceptance 实查，不只是转述 worker。
+- Herdr状态读取实际 `result.agent.agent_status`；working不当done，未知不猜。headless则查实际进程与runner结果。
+- 通过后 `verify TASK RUN --evidence FILE`，失败加 `--reject`。最多两次返工后升级问题，不能无限开跑。
+- 已授权后续步骤继续执行；未授权付款、公开、改生产边界仍须确认。
+- `prepare-report` 绑定验收、目标和正文hash；实际发送成功后，`report`关联真实sender/bridge账本。不能伪造receipt或用无关messageId补签。
+- Telegram Markdown会转换HTML并trim；绑定hash前须使用相同渲染结果，或使用转换不变的纯文本。不可在发送后改不可变intent来迁就错误hash。
+- 控制事件单独 `ack EVENT CLAIM handled --evidence FILE`；claim变化先inspect。enqueued不是handled，也不是业务成功。
+- 内部阶段、返工、过期/重复事件不对用户重复播报。最终只交付结果与必要限制。
+
+### 通知保障及旧记录
+
+1. runner结构化结果与稳定 task/run/phase outbox 关联；notify-agent携带 task/run/event/result/route。
+2. 主 agent 接续时现场对账结果、claim/lease、验收和签收。
+3. launchd task-watchdog每180秒兜底；owner缺失或持续错误不能承诺一个周期内送达。
+
+忙时排队、闲时注入；有界重试和幂等，不保证exactly-once。未知ACK不盲重发。过时未发通知可supersede；sending/unknown必须保留不确定性。旧CLI兼容通知只有durable inbox签收，不等于完成。
+
+历史任务缺run证据先标needs_reconciliation；按CLI的expected-hash和inspection显式adopt/close-legacy，不批量假报完成。原始outbox/inbox/receipt不删不重放。通知/权限基础设施的改造要单独授权，不因为本次skill更新而重构生产。
+
+## 7. 产物与同步
+
+- 一般报告写 `~/research/`，按 `publish-artifact` 的 `report.sh` 发布HTML链接，并本地保留。远端key带 `.html`。
+- 用户指定博客草稿走独立分支+Preview；公司资料按其工作域规则处理，不公开上传。
+- Telegram链接一律 `[标题](https://...)`；长分析用段落+bullet，不用长表格。
+- 运行时 `~/.agents/skills/` 为权威，更新后同步 `~/dev/skills/personal/`。官方skill保留原文并记来源版本；个人适配写在本文件。不把账号凭据、私有任务输入或输出同步到公开仓库。
