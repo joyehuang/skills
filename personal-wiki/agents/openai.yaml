@@ -1,0 +1,7 @@
+interface:
+  display_name: "Personal Wiki"
+  short_description: "Import and organize sources in a Git-backed personal wiki"
+  default_prompt: "Use $personal-wiki to import this source into my Git-backed personal Wiki and report any blocked capabilities."
+
+policy:
+  allow_implicit_invocation: true

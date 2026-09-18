@@ -94,6 +94,7 @@ Claude Code uses a different path (`~/.claude/skills/` globally, `.claude/skills
 | [`brainstorm`](./brainstorm) | Discover secondary development directions for the current project. |
 | [`archive-card-writer`](./archive-card-writer) | Turn fragmented notes into structured archive cards for a personal blog. |
 | [`curated-content-writer`](./curated-content-writer) | Turn external papers / articles / links into concise curated entries with reading notes. |
+| [`personal-wiki`](./personal-wiki) | Import and organize Markdown, Feishu docs, and LLM share links in a Git-backed personal Wiki. |
 
 ### Video & content production
 
