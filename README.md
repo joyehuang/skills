@@ -94,6 +94,7 @@ Claude Code uses a different path (`~/.claude/skills/` globally, `.claude/skills
 | [`brainstorm`](./brainstorm) | Discover secondary development directions for the current project. |
 | [`archive-card-writer`](./archive-card-writer) | Turn fragmented notes into structured archive cards for a personal blog. |
 | [`curated-content-writer`](./curated-content-writer) | Turn external papers / articles / links into concise curated entries with reading notes. |
+| [`blog-style-html`](./blog-style-html) | Build a single-file HTML article in Joye's blog style: one column, light/dark, scroll-animated diagrams. |
 
 ### Video & content production
 
