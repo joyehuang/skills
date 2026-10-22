@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>夹夹 · 登录表单</title>
+    <link rel="stylesheet" href="shared.css" />
+    <style>
+      .auth-wrap {
+        min-height: calc(100vh - 140px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem 0 3rem;
+      }
+      .auth-card {
+        width: 100%;
+        max-width: 420px;
+        padding: 2rem;
+        border-radius: 1.25rem;
+      }
+      .auth-card h1 {
+        font-size: 1.5rem;
+        margin: 0 0 0.5rem;
+        text-align: center;
+      }
+      .auth-sub {
+        text-align: center;
+        color: var(--muted-foreground);
+        font-size: 14px;
+        margin-bottom: 1.75rem;
+      }
+      .field {
+        margin-bottom: 1.1rem;
+      }
+      .auth-actions {
+        margin-top: 1.5rem;
+      }
+      .auth-actions .btn {
+        width: 100%;
+      }
+      .auth-link {
+        display: block;
+        text-align: center;
+        margin-top: 1rem;
+        color: var(--link);
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="page-frame site-header-inner">
+        <a class="brand" href="#">
+          <span class="filo-avatar"></span>
+          <span><div class="brand-name font-heading">夹夹</div></span>
+        </a>
+      </div>
+    </header>
+
+    <main class="page-frame auth-wrap">
+      <form class="card auth-card" action="#" method="get">
+        <p class="eyebrow font-heading" style="justify-content: center">需登录</p>
+        <h1 class="font-heading">登录后继续</h1>
+        <p class="auth-sub">夹夹需要确认身份后才能同步你的提问记录。</p>
+
+        <div class="field">
+          <label class="label" for="email">邮箱</label>
+          <input class="input" id="email" name="email" type="email" autocomplete="username" placeholder="you@example.com" />
+        </div>
+        <div class="field">
+          <label class="label" for="password">密码</label>
+          <input class="input" id="password" name="password" type="password" autocomplete="current-password" />
+          <p class="field-error">密码至少需要 8 个字符。</p>
+        </div>
+
+        <div class="auth-actions">
+          <button class="btn btn-primary" type="submit">登录</button>
+        </div>
+        <a class="auth-link" href="#">忘记密码？</a>
+      </form>
+    </main>
+  </body>
+</html>

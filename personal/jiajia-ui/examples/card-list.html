@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>夹夹 · EntryCard 列表</title>
+    <link rel="stylesheet" href="shared.css" />
+    <style>
+      .page-intro {
+        padding: 2.5rem 0 1.5rem;
+      }
+      .page-intro h1 {
+        font-size: 1.75rem;
+        margin: 0;
+      }
+      .card-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        padding-bottom: 3rem;
+      }
+      .entry-top {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.5rem 0.75rem;
+        margin-bottom: 0.75rem;
+      }
+      .entry-meta {
+        color: var(--muted-foreground);
+        margin-left: auto;
+      }
+      .entry-title {
+        font-size: 21px;
+        line-height: 1.35;
+        margin: 0 0 0.5rem;
+      }
+      .entry-summary {
+        color: var(--muted-foreground);
+        font-size: 15px;
+        margin: 0 0 1rem;
+      }
+      .entry-foot {
+        font-size: 13px;
+        color: var(--muted-foreground);
+      }
+      .rec {
+        color: var(--coral-ink);
+        font-size: 12px;
+        font-weight: 600;
+      }
+      .rec-star {
+        color: var(--coral-ink);
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="page-frame site-header-inner">
+        <a class="brand" href="#">
+          <span class="filo-avatar"></span>
+          <span><div class="brand-name font-heading">夹夹</div></span>
+        </a>
+        <nav class="nav-desktop"><a class="is-active" href="#">全部答案</a></nav>
+      </div>
+    </header>
+
+    <main class="page-frame">
+      <header class="page-intro">
+        <p class="eyebrow font-heading">知识库</p>
+        <h1 class="font-heading">最新整理的条目</h1>
+      </header>
+
+      <div class="card-list">
+        <article class="card entry-card">
+          <div class="entry-top">
+            <span class="type-chip chip-method">method</span>
+            <span class="rec"><span class="rec-star">★</span> 推荐</span>
+            <span class="entry-meta font-mono">截至 2026-03-18</span>
+          </div>
+          <h2 class="entry-title font-heading">如何写一条可检索的 FAQ</h2>
+          <p class="entry-summary">结论先行，一句说清「对谁、在什么场景、解决什么」。</p>
+          <p class="entry-foot">专题 · 内容规范</p>
+        </article>
+
+        <article class="card entry-card">
+          <div class="entry-top">
+            <span class="type-chip chip-concept">concept</span>
+            <span class="entry-meta font-mono">截至 2026-03-12</span>
+          </div>
+          <h2 class="entry-title font-heading">TypeChip 配色为什么要「浅底 + 深字」</h2>
+          <p class="entry-summary">同色相配对才能过 AA，method / concept / pick 各自独立。</p>
+          <p class="entry-foot">专题 · 设计系统</p>
+        </article>
+
+        <article class="card entry-card">
+          <div class="entry-top">
+            <span class="type-chip chip-pick">pick</span>
+            <span class="entry-meta font-mono">截至 2026-03-05</span>
+          </div>
+          <h2 class="entry-title font-heading">珊瑚色只作点缀时的三个位置</h2>
+          <p class="entry-summary">Filo 信号灯、推荐星标、图表第三色——不做大面积铺底。</p>
+          <p class="entry-foot">专题 · 品牌</p>
+        </article>
+
+        <article class="card entry-card">
+          <div class="entry-top">
+            <span class="type-chip chip-read">read</span>
+            <span class="entry-meta font-mono">截至 2026-02-28</span>
+          </div>
+          <h2 class="entry-title font-heading">公开页容器 page-frame 的断点内边距</h2>
+          <p class="entry-summary">1240px 上限，1.25rem → 2.5rem → 3.5rem 递进。</p>
+          <p class="entry-foot">专题 · 布局</p>
+        </article>
+      </div>
+    </main>
+  </body>
+</html>

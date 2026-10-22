@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>夹夹 · Filo 表情场景</title>
+    <link rel="stylesheet" href="shared.css" />
+    <style>
+      .filo-mascot-lg.curious::before {
+        box-shadow: -22px 4px 0 var(--filo-dot);
+      }
+      .filo-mascot-lg.shy {
+        opacity: 0.85;
+        transform: scale(0.96);
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="page-frame site-header-inner">
+        <a class="brand" href="#"><span class="filo-avatar"></span><span><div class="brand-name font-heading">夹夹</div></span></a>
+      </div>
+    </header>
+    <main class="page-frame" style="padding-bottom: 3rem">
+      <header class="page-intro">
+        <p class="eyebrow font-heading">Mascot</p>
+        <h1 class="font-heading">StateView 表情映射</h1>
+      </header>
+      <p style="color: var(--muted-foreground); max-width: 36rem; margin-bottom: 1.5rem">
+        示例用 CSS 占位 Filo（非 qqbot SVG）。正式站走 mascot.ts 降级。每个状态对应一个表情。
+      </p>
+      <div class="mascot-grid">
+        <div class="card mascot-scene">
+          <div class="filo-mascot-lg think" style="width: 80px; height: 80px"></div>
+          <p class="font-heading" style="font-size: 13px; color: var(--foreground)">loading · think</p>
+        </div>
+        <div class="card mascot-scene">
+          <div class="filo-mascot-lg puzzled" style="width: 80px; height: 80px"></div>
+          <p class="font-heading" style="font-size: 13px">无结果 · puzzled</p>
+        </div>
+        <div class="card mascot-scene">
+          <div class="filo-mascot-lg curious" style="width: 80px; height: 80px"></div>
+          <p class="font-heading" style="font-size: 13px">需登录 · curious</p>
+        </div>
+        <div class="card mascot-scene">
+          <div class="filo-mascot-lg sleepy" style="width: 80px; height: 80px"></div>
+          <p class="font-heading" style="font-size: 13px">不可用 · sleepy</p>
+        </div>
+        <div class="card mascot-scene">
+          <div class="filo-mascot-lg shy" style="width: 80px; height: 80px"></div>
+          <p class="font-heading" style="font-size: 13px">已撤回 · shy</p>
+        </div>
+        <div class="card mascot-scene">
+          <div class="filo-mascot-lg puzzled" style="width: 80px; height: 80px"></div>
+          <p class="font-heading" style="font-size: 13px">404 · puzzled</p>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

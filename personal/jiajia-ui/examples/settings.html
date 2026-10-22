@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>夹夹 · 设置</title>
+    <link rel="stylesheet" href="shared.css" />
+    <style>
+      .settings-section {
+        padding: 1.25rem 1.5rem;
+        border-radius: 1rem;
+        margin-bottom: 1rem;
+      }
+      .settings-section h2 {
+        font-size: 1rem;
+        margin: 0 0 1rem;
+      }
+      .row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 0.75rem 0;
+        border-bottom: 1px solid var(--muted);
+      }
+      .row:last-child {
+        border-bottom: none;
+      }
+      .row-desc {
+        font-size: 13px;
+        color: var(--muted-foreground);
+      }
+      .toggle {
+        width: 44px;
+        height: 26px;
+        border-radius: 9999px;
+        background: var(--filo-sky);
+        border: 1px solid var(--border);
+        position: relative;
+      }
+      .toggle::after {
+        content: "";
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        border-radius: 9999px;
+        background: var(--card);
+        top: 2px;
+        right: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="page-frame site-header-inner">
+        <a class="brand" href="#"><span class="filo-avatar"></span><span><div class="brand-name font-heading">夹夹</div></span></a>
+      </div>
+    </header>
+    <main class="page-frame" style="padding-bottom: 3rem">
+      <header class="page-intro">
+        <p class="eyebrow font-heading">账户</p>
+        <h1 class="font-heading">设置</h1>
+      </header>
+      <section class="card settings-section">
+        <h2 class="font-heading">外观</h2>
+        <div class="row">
+          <div>
+            <div>主题</div>
+            <div class="row-desc">跟随系统 · 颜色走 CSS 变量，支持 .dark</div>
+          </div>
+          <select class="input" style="width: auto; min-width: 120px" aria-label="主题">
+            <option>浅色</option>
+            <option>深色</option>
+            <option>系统</option>
+          </select>
+        </div>
+        <div class="row">
+          <div>
+            <div>减少动效</div>
+            <div class="row-desc">尊重 prefers-reduced-motion</div>
+          </div>
+          <span class="toggle" role="switch" aria-checked="true" aria-label="减少动效"></span>
+        </div>
+      </section>
+      <section class="card settings-section">
+        <h2 class="font-heading">通知</h2>
+        <div class="row">
+          <div>专题更新摘要</div>
+          <span class="toggle" role="switch" aria-checked="false" aria-label="专题更新"></span>
+        </div>
+      </section>
+      <button class="btn btn-outline" type="button">退出登录</button>
+    </main>
+  </body>
+</html>

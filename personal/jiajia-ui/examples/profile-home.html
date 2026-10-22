@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>夹夹 · 个人主页</title>
+    <link rel="stylesheet" href="shared.css" />
+    <style>
+      .profile-hero {
+        display: flex;
+        gap: 1.25rem;
+        align-items: center;
+        padding: 1.5rem;
+        border-radius: 1.25rem;
+        margin-bottom: 1.25rem;
+      }
+      .avatar-lg {
+        width: 72px;
+        height: 72px;
+        border-radius: 9999px;
+        background: var(--secondary);
+        border: 1px solid var(--border);
+      }
+      .quick-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: 1rem;
+      }
+      .recent-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.65rem;
+      }
+      .recent-item {
+        padding: 0.85rem 1rem;
+        border-radius: 0.75rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0.75rem;
+      }
+      .recent-item span:last-child {
+        color: var(--muted-foreground);
+        font-size: 13px;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="page-frame site-header-inner">
+        <a class="brand" href="#"><span class="filo-avatar"></span><span><div class="brand-name font-heading">夹夹</div></span></a>
+        <nav class="nav-desktop"><a class="is-active" href="#">我的</a></nav>
+      </div>
+    </header>
+    <main class="page-frame" style="padding-bottom: 3rem">
+      <article class="card profile-hero">
+        <div class="avatar-lg" aria-hidden="true"></div>
+        <div>
+          <h1 class="font-heading" style="font-size: 1.35rem; margin: 0">访客用户</h1>
+          <p style="margin: 0.35rem 0 0; color: var(--muted-foreground); font-size: 14px">已收藏 12 条 · 最近活跃 今天</p>
+          <div class="quick-actions">
+            <a class="btn btn-primary" href="#">继续提问</a>
+            <a class="btn btn-outline" href="#">浏览专题</a>
+          </div>
+        </div>
+      </article>
+      <p class="eyebrow font-heading">最近看过</p>
+      <div class="recent-list">
+        <a class="card recent-item" href="#"><span>TypeChip 配色规范</span><span class="font-mono">03-18</span></a>
+        <a class="card recent-item" href="#"><span>page-frame 断点说明</span><span class="font-mono">03-12</span></a>
+        <a class="card recent-item" href="#"><span>StateView 文案口吻</span><span class="font-mono">03-05</span></a>
+      </div>
+    </main>
+  </body>
+</html>

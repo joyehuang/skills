@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>夹夹 · 问答页</title>
+    <link rel="stylesheet" href="shared.css" />
+    <style>
+      .chat-layout {
+        display: grid;
+        grid-template-columns: 1fr 320px;
+        gap: 1.25rem;
+        padding: 1.5rem 0 3rem;
+        align-items: start;
+      }
+      @media (max-width: 767px) {
+        .chat-layout {
+          grid-template-columns: 1fr;
+        }
+        .chat-side {
+          order: -1;
+        }
+      }
+      .chat-main {
+        padding: 1.25rem;
+        border-radius: 1.25rem;
+      }
+      .bubble {
+        max-width: 92%;
+        padding: 0.85rem 1rem;
+        border-radius: 1rem;
+        margin-bottom: 0.85rem;
+        font-size: 15px;
+        line-height: 1.75;
+      }
+      .bubble-user {
+        margin-left: auto;
+        background: var(--accent);
+        border: 1px solid color-mix(in srgb, var(--filo-sky) 45%, var(--border));
+      }
+      .bubble-bot {
+        background: var(--card);
+        border: 1px solid var(--border);
+      }
+      .bubble-bot strong {
+        font-family: "Nunito", "ZCOOL KuaiLe", sans-serif;
+      }
+      .composer {
+        display: flex;
+        gap: 0.5rem;
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--border);
+      }
+      .composer input {
+        flex: 1;
+      }
+      .chat-side {
+        padding: 1.25rem;
+        border-radius: 1rem;
+      }
+      .chat-side h2 {
+        font-size: 1rem;
+        margin: 0 0 0.75rem;
+      }
+      .chat-side ul {
+        margin: 0;
+        padding-left: 1.1rem;
+        color: var(--muted-foreground);
+        font-size: 14px;
+        line-height: 1.7;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="page-frame site-header-inner">
+        <a class="brand" href="#"><span class="filo-avatar"></span><span><div class="brand-name font-heading">夹夹</div></span></a>
+        <nav class="nav-desktop"><a class="is-active" href="#">问答</a><a href="#">历史</a></nav>
+      </div>
+    </header>
+
+    <main class="page-frame">
+      <p class="eyebrow font-heading" style="margin-top: 1.5rem">公开问答</p>
+      <h1 class="font-heading" style="font-size: 1.5rem; margin: 0 0 1rem">向夹夹提问</h1>
+
+      <div class="chat-layout">
+        <section class="card chat-main">
+          <div class="bubble bubble-user">设计系统里，标题字体应该怎么用？</div>
+          <div class="bubble bubble-bot">
+            <strong>夹夹：</strong>公开页标题用 <span class="mark">font-heading</span>（Nunito + 站酷快乐），正文保持 Noto Sans SC，行距宽一点（leading-7）。数字和日期可以配 IBM Plex Mono。
+          </div>
+          <div class="bubble bubble-user">错误提示用什么颜色？</div>
+          <div class="bubble bubble-bot">
+            <strong>夹夹：</strong>文字级强调用 <span style="color: var(--coral-ink)">coral-ink</span>，破坏性操作用 <span style="color: var(--destructive)">destructive</span>。大面积铺底不要用 Filo 珊瑚 dot 色。
+          </div>
+
+          <form class="composer" action="#" method="get">
+            <input class="input" type="text" placeholder="输入问题，Enter 发送…" aria-label="问题" />
+            <button class="btn btn-primary hit-area" type="submit">发送</button>
+          </form>
+        </section>
+
+        <aside class="card chat-side">
+          <h2 class="font-heading">提问提示</h2>
+          <ul>
+            <li>一句话说清场景与目标</li>
+            <li>夹夹会用第三人称回复</li>
+            <li>无结果时会说明下一步</li>
+          </ul>
+        </aside>
+      </div>
+    </main>
+  </body>
+</html>

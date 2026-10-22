@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>夹夹 · 空 / 加载 / 错误状态</title>
+    <link rel="stylesheet" href="shared.css" />
+    <style>
+      .states-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.25rem;
+        padding: 2rem 0 3rem;
+      }
+      @media (max-width: 767px) {
+        .states-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      .state-panel {
+        padding: 1.5rem 1rem 2rem;
+        border-radius: 1.25rem;
+      }
+      .state-panel h3 {
+        font-size: 13px;
+        text-align: center;
+        color: var(--muted-foreground);
+        margin: 0 0 0.5rem;
+        font-weight: 600;
+      }
+      .filo-mascot-lg.puzzled::after {
+        content: "";
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        border-radius: 9999px;
+        background: var(--filo-dot);
+        top: 42px;
+        left: 46px;
+        box-shadow: 24px 0 0 var(--filo-dot);
+        transform: rotate(-8deg);
+      }
+      .filo-mascot-lg.sleepy {
+        opacity: 0.92;
+      }
+      .filo-mascot-lg.sleepy::after {
+        content: "z";
+        position: absolute;
+        bottom: 28px;
+        right: 18px;
+        font-family: "Nunito", sans-serif;
+        font-weight: 800;
+        color: var(--muted-foreground);
+        font-size: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="page-frame site-header-inner">
+        <a class="brand" href="#"><span class="filo-avatar"></span><span><div class="brand-name font-heading">夹夹</div></span></a>
+      </div>
+    </header>
+
+    <main class="page-frame">
+      <header class="page-intro" style="padding-top: 2rem">
+        <p class="eyebrow font-heading">StateView</p>
+        <h1 class="font-heading" style="font-size: 1.75rem; margin: 0">异常与等待态</h1>
+      </header>
+
+      <div class="states-grid">
+        <section class="card state-panel">
+          <h3>loading · think</h3>
+          <div class="state-view">
+            <div class="filo-mascot-lg think" role="img" aria-label="Filo 思考中"></div>
+            <h2 class="font-heading">夹夹正在翻找…</h2>
+            <p>通常几秒钟就好，请稍候。</p>
+          </div>
+        </section>
+
+        <section class="card state-panel">
+          <h3>空结果 · puzzled</h3>
+          <div class="state-view">
+            <div class="filo-mascot-lg puzzled" role="img" aria-label="Filo 困惑"></div>
+            <h2 class="font-heading">没找到相关答案</h2>
+            <p>换个说法试试，或者去看看全部答案。</p>
+            <a class="btn btn-outline" href="#">浏览全部</a>
+          </div>
+        </section>
+
+        <section class="card state-panel">
+          <h3>不可用 · sleepy</h3>
+          <div class="state-view">
+            <div class="filo-mascot-lg sleepy" role="img" aria-label="Filo 打盹"></div>
+            <h2 class="font-heading">夹夹打了个盹，暂时连不上</h2>
+            <p>通常几分钟后就会恢复，你看到的是上一次成功加载的内容。</p>
+            <button class="btn btn-primary" type="button">重试</button>
+          </div>
+        </section>
+
+        <section class="card state-panel">
+          <h3>404 · puzzled</h3>
+          <div class="state-view">
+            <div class="filo-mascot-lg puzzled" role="img" aria-label="Filo 404"></div>
+            <h2 class="font-heading">这一页不存在</h2>
+            <p>链接可能已过期，回到首页继续浏览。</p>
+            <a class="btn btn-outline" href="#">回首页</a>
+          </div>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>夹夹 · 数据仪表盘</title>
+    <link rel="stylesheet" href="shared.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="page-frame site-header-inner">
+        <a class="brand" href="#"><span class="filo-avatar"></span><span><div class="brand-name font-heading">夹夹后台</div></span></a>
+      </div>
+    </header>
+    <div class="shell-layout">
+      <aside class="shell-sidebar" aria-label="侧栏">
+        <a class="is-active" href="#">概览</a>
+        <a href="#">问答</a>
+        <a href="#">知识库</a>
+      </aside>
+      <main class="shell-main">
+        <p class="eyebrow font-heading">后台壳</p>
+        <h1 class="font-heading page-intro" style="padding: 0; margin-bottom: 1.25rem">本周概览</h1>
+        <div class="stat-grid" style="margin-bottom: 1.25rem">
+          <article class="card stat-card">
+            <div class="stat-label">提问次数</div>
+            <div class="stat-value">1,284</div>
+            <div class="stat-delta">+12% 较上周</div>
+          </article>
+          <article class="card stat-card">
+            <div class="stat-label">有效回答率</div>
+            <div class="stat-value">94.2%</div>
+          </article>
+          <article class="card stat-card">
+            <div class="stat-label">平均响应</div>
+            <div class="stat-value">1.8s</div>
+          </article>
+          <article class="card stat-card">
+            <div class="stat-label">专题更新</div>
+            <div class="stat-value">26</div>
+          </article>
+        </div>
+        <div class="card" style="padding: 1.25rem; border-radius: 1rem">
+          <h2 class="font-heading" style="font-size: 1rem; margin: 0 0 1rem">来源分布（chart token）</h2>
+          <div class="chart-bar-row"><span style="width: 4rem">搜索</span><div class="chart-bar"><span style="width: 72%"></span></div></div>
+          <div class="chart-bar-row"><span style="width: 4rem">直达</span><div class="chart-bar"><span style="width: 48%"></span></div></div>
+          <div class="chart-bar-row"><span style="width: 4rem">专题</span><div class="chart-bar"><span class="coral" style="width: 22%"></span></div></div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

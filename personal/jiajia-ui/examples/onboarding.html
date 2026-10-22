@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>夹夹 · 新手指引</title>
+    <link rel="stylesheet" href="shared.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="page-frame site-header-inner">
+        <a class="brand" href="#"><span class="filo-avatar"></span><span><div class="brand-name font-heading">夹夹</div></span></a>
+      </div>
+    </header>
+    <main class="page-frame" style="max-width: 480px; padding-bottom: 3rem">
+      <div class="steps" aria-label="步骤 2 / 3">
+        <span class="step-dot is-done"></span>
+        <span class="step-dot is-current"></span>
+        <span class="step-dot"></span>
+      </div>
+      <p class="eyebrow font-heading">欢迎</p>
+      <h1 class="font-heading" style="font-size: 1.5rem; margin: 0 0 0.75rem">先告诉夹夹你在找什么</h1>
+      <p style="color: var(--muted-foreground); margin-bottom: 1.5rem">一步一句即可，之后可以随时在设置里改。</p>
+      <div class="field" style="margin-bottom: 1rem">
+        <label class="label" for="topic">主要兴趣</label>
+        <select class="input" id="topic">
+          <option>产品与设计</option>
+          <option>开发与工具</option>
+          <option>职业成长</option>
+        </select>
+      </div>
+      <div class="field" style="margin-bottom: 1.5rem">
+        <label class="label" for="goal">本周目标</label>
+        <input class="input" id="goal" placeholder="例如：整理团队 FAQ" />
+      </div>
+      <div style="display: flex; gap: 0.5rem">
+        <button class="btn btn-outline" type="button">上一步</button>
+        <button class="btn btn-primary" type="button" style="flex: 1">下一步</button>
+      </div>
+      <p style="font-size: 13px; color: var(--muted-foreground); margin-top: 1rem">动效保持极短；系统开启 reduced-motion 时会全局兜底。</p>
+    </main>
+  </body>
+</html>

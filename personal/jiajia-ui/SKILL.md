@@ -78,6 +78,11 @@ description: 夹夹（jiajia.fun，qqbot dashboard-ui）的 UI/UX 设计系统�
 - 说明实际情况，不吓人：「通常几分钟后就会恢复，你看到的是上一次成功加载的内容。」
 - 全角中文标点，书名号/引号用「」；数字与中文之间留空格
 
+## 静态示例（本仓库 `personal/jiajia-ui/examples/`）
+
+- 单文件 HTML + `shared.css`，token 与上文一致；截图存 `assets/`（1280 / 390）
+- 示例字体经 jsDelivr @fontsource，便于本地打开与 Playwright 复拍；**线上夹夹仍必须自托管 `fonts.css`（禁止生产环境外链 Google Fonts）**
+
 ## 新页面落地流程
 
 1. 在 dashboard-ui 内直接用 Tailwind 语义类（`bg-card text-foreground border text-muted-foreground font-heading`），不要新增 hex

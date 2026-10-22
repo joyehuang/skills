@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>夹夹 · 弹层与抽屉</title>
+    <link rel="stylesheet" href="shared.css" />
+    <style>
+      .demo-bg {
+        filter: blur(0);
+        pointer-events: none;
+        user-select: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="modal card">
+        <p class="eyebrow font-heading">确认</p>
+        <h2 id="modal-title" class="font-heading">删除这条草稿？</h2>
+        <p style="color: var(--muted-foreground); font-size: 14px; margin: 0 0 1.25rem">删除后无法恢复。夹夹只会移除草稿，不会影响已发布答案。</p>
+        <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: flex-end">
+          <button class="btn btn-outline" type="button">取消</button>
+          <button class="btn btn-primary" type="button" style="background: var(--destructive)">删除</button>
+        </div>
+      </div>
+    </div>
+    <div class="drawer-backdrop is-open" aria-hidden="true"></div>
+    <nav class="nav-drawer is-open" aria-label="筛选抽屉" style="width: min(320px, 90vw)">
+      <h2 class="font-heading" style="font-size: 1.1rem; margin: 0 0 1rem">筛选</h2>
+      <p class="label">类型</p>
+      <div class="filter-row" style="margin-bottom: 1rem">
+        <span class="filter-chip is-on">全部</span>
+        <span class="filter-chip">method</span>
+        <span class="filter-chip">concept</span>
+      </div>
+      <button class="btn btn-primary" type="button" style="width: 100%">应用</button>
+    </nav>
+    <div class="demo-bg">
+      <header class="site-header">
+        <div class="page-frame site-header-inner">
+          <a class="brand" href="#"><span class="filo-avatar"></span><span><div class="brand-name font-heading">夹夹</div></span></a>
+        </div>
+      </header>
+      <main class="page-frame"><p style="padding: 2rem 0; color: var(--muted-foreground)">背景页被 modal + sheet 覆盖（shadcn sheet 语义）。</p></main>
+    </div>
+  </body>
+</html>

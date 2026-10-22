@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>夹夹 · 通知与 Toast</title>
+    <link rel="stylesheet" href="shared.css" />
+  </head>
+  <body>
+    <div class="toast-stack" aria-live="polite">
+      <div class="toast">
+        <div class="toast-title">专题已更新</div>
+        <div class="toast-muted">「设计系统」新增 3 条答案，夹夹已同步到列表。</div>
+      </div>
+      <div class="toast toast-destructive">
+        <div class="toast-title" style="color: var(--destructive)">保存失败</div>
+        <div class="toast-muted">网络不太稳定，请稍后重试。通常几分钟就会恢复。</div>
+      </div>
+    </div>
+    <header class="site-header">
+      <div class="page-frame site-header-inner">
+        <a class="brand" href="#"><span class="filo-avatar"></span><span><div class="brand-name font-heading">夹夹</div></span></a>
+      </div>
+    </header>
+    <main class="page-frame" style="padding: 2rem 0 3rem">
+      <p class="eyebrow font-heading">反馈</p>
+      <h1 class="font-heading" style="font-size: 1.5rem; margin: 0 0 1rem">Toast 与通知列表</h1>
+      <p style="color: var(--muted-foreground); max-width: 32rem">
+        Toast 使用卡片 + 1px 边框，仅极淡墨蓝描边（非硬阴影堆叠）。错误标题用 destructive，说明保持 muted 口吻。
+      </p>
+      <ul class="card" style="margin-top: 1.5rem; padding: 0; list-style: none; border-radius: 1rem; overflow: hidden">
+        <li style="padding: 1rem 1.25rem; border-bottom: 1px solid var(--border); display: flex; gap: 0.75rem; align-items: flex-start">
+          <span style="width: 8px; height: 8px; border-radius: 9999px; background: var(--filo-dot); margin-top: 0.45rem; flex-shrink: 0"></span>
+          <div>
+            <div style="font-weight: 600">新回答可用</div>
+            <div style="font-size: 13px; color: var(--muted-foreground)">你关注的关键词「StateView」有更新 · 10 分钟前</div>
+          </div>
+        </li>
+        <li style="padding: 1rem 1.25rem; display: flex; gap: 0.75rem; align-items: flex-start">
+          <span style="width: 8px; height: 8px; border-radius: 9999px; background: var(--filo-sky); margin-top: 0.45rem"></span>
+          <div>
+            <div style="font-weight: 600">导出完成</div>
+            <div style="font-size: 13px; color: var(--muted-foreground)">Markdown 已准备好下载 · 昨天</div>
+          </div>
+        </li>
+      </ul>
+    </main>
+  </body>
+</html>

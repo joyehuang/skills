@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>夹夹 · 公开页 Hero 示例</title>
+    <link rel="stylesheet" href="shared.css" />
+    <style>
+      .hero {
+        padding: 3.5rem 0 4rem;
+      }
+      .hero h1 {
+        font-size: clamp(1.75rem, 4vw, 2.5rem);
+        line-height: 1.25;
+        margin: 0 0 1rem;
+        max-width: 16ch;
+      }
+      .hero-lead {
+        color: var(--muted-foreground);
+        font-size: 17px;
+        max-width: 36rem;
+        margin-bottom: 1.75rem;
+      }
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+      }
+      .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        margin-top: 3rem;
+      }
+      @media (max-width: 767px) {
+        .feature-grid {
+          grid-template-columns: 1fr;
+        }
+        .hero {
+          padding-top: 2rem;
+        }
+      }
+      .feature-card {
+        padding: 1.25rem;
+      }
+      .feature-card h3 {
+        font-size: 1.05rem;
+        margin: 0 0 0.5rem;
+      }
+      .feature-card p {
+        margin: 0;
+        color: var(--muted-foreground);
+        font-size: 14px;
+        line-height: 1.7;
+      }
+      .dot-accent {
+        width: 8px;
+        height: 8px;
+        border-radius: 9999px;
+        background: var(--filo-dot);
+        display: inline-block;
+        margin-right: 0.35rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="page-frame site-header-inner">
+        <a class="brand" href="#">
+          <span class="filo-avatar" aria-hidden="true"></span>
+          <span>
+            <div class="brand-name font-heading">夹夹</div>
+            <div class="brand-tagline">安静可读的知识助手</div>
+          </span>
+        </a>
+        <nav class="nav-desktop" aria-label="主导航">
+          <a class="is-active" href="#">首页</a>
+          <a href="#">问答</a>
+          <a href="#">专题</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="page-frame hero">
+      <p class="eyebrow font-heading">公开页</p>
+      <h1 class="font-heading">把复杂问题拆成<span class="mark">能读完</span>的一页答案</h1>
+      <p class="hero-lead">
+        暖纸底、墨蓝字、大圆角卡片——可爱只来自标题字体和 Filo，不靠阴影和渐变堆氛围。
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#">开始提问</a>
+        <a class="btn btn-outline" href="#">浏览专题</a>
+      </div>
+
+      <div class="feature-grid">
+        <article class="card feature-card">
+          <h3 class="font-heading"><span class="dot-accent"></span>可读优先</h3>
+          <p>正文 leading-7，次要信息用 muted 色，不用纯黑字。</p>
+        </article>
+        <article class="card feature-card">
+          <h3 class="font-heading">天空蓝交互</h3>
+          <p>Focus ring 与 hover 边框走 <code class="font-mono">--ring</code>，卡片 hover 变 sky 边。</p>
+        </article>
+        <article class="card feature-card">
+          <h3 class="font-heading">几乎无阴影</h3>
+          <p>层级靠 1px 暖灰边框区分，新页面默认不写 box-shadow。</p>
+        </article>
+      </div>
+    </main>
+
+    <footer class="site-footer page-frame">
+      示例页 · 仅演示 jiajia-ui 设计 token，无真实数据
+    </footer>
+  </body>
+</html>

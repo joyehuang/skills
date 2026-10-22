@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>夹夹 · 搜索结果</title>
+    <link rel="stylesheet" href="shared.css" />
+    <style>
+      .search-bar {
+        display: flex;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+      }
+      .result-item {
+        padding: 1rem 1.25rem;
+        border-radius: 1rem;
+        margin-bottom: 0.65rem;
+      }
+      .result-item h2 {
+        font-size: 1.05rem;
+        margin: 0 0 0.35rem;
+      }
+      .result-item p {
+        margin: 0;
+        font-size: 14px;
+        color: var(--muted-foreground);
+        line-height: 1.65;
+      }
+      .result-meta {
+        font-size: 12px;
+        color: var(--muted-foreground);
+        margin-top: 0.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="page-frame site-header-inner">
+        <a class="brand" href="#"><span class="filo-avatar"></span><span><div class="brand-name font-heading">夹夹</div></span></a>
+      </div>
+    </header>
+    <main class="page-frame" style="padding-bottom: 3rem">
+      <header class="page-intro">
+        <p class="eyebrow font-heading">搜索</p>
+        <h1 class="font-heading">「圆角」的 4 条结果</h1>
+      </header>
+      <form class="search-bar" action="#" method="get">
+        <input class="input" type="search" value="圆角" aria-label="搜索" />
+        <button class="btn btn-primary hit-area" type="submit">搜索</button>
+      </form>
+      <article class="card result-item">
+        <h2 class="font-heading"><span class="mark">圆角</span> token 与组件</h2>
+        <p>--radius 0.875rem；卡片可用 rounded-xl / 20px；chip 与头像 rounded-full。</p>
+        <p class="result-meta">专题 · 设计系统</p>
+      </article>
+      <article class="card result-item">
+        <h2 class="font-heading">EntryCard 结构</h2>
+        <p>白卡 + 1px 边框 + rounded-[20px]，hover 时边框变为 filo-sky。</p>
+        <p class="result-meta">method · 2026-03-10</p>
+      </article>
+      <article class="card result-item">
+        <h2 class="font-heading">Button focus ring</h2>
+        <p>交互态使用 3px 天空蓝 ring，与 link 色区分。</p>
+        <p class="result-meta">read · 2026-02-28</p>
+      </article>
+    </main>
+  </body>
+</html>

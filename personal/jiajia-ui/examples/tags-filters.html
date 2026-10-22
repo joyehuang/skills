@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>夹夹 · 标签与筛选</title>
+    <link rel="stylesheet" href="shared.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="page-frame site-header-inner">
+        <a class="brand" href="#"><span class="filo-avatar"></span><span><div class="brand-name font-heading">夹夹</div></span></a>
+      </div>
+    </header>
+    <main class="page-frame" style="padding-bottom: 3rem">
+      <header class="page-intro">
+        <p class="eyebrow font-heading">列表</p>
+        <h1 class="font-heading">按类型浏览</h1>
+      </header>
+      <p class="label">类型 chip（AA 浅底 + 深字）</p>
+      <div class="filter-row">
+        <span class="type-chip chip-method">method</span>
+        <span class="type-chip chip-concept">concept</span>
+        <span class="type-chip chip-pick">pick</span>
+        <span class="type-chip chip-read">read</span>
+        <span class="type-chip" style="background: #cdeedb; color: #1f6a43">career</span>
+        <span class="type-chip" style="background: #d2ecef; color: #19636b">company</span>
+        <span class="type-chip" style="background: #f9d7e7; color: #9a2d63">discussion</span>
+      </div>
+      <p class="label" style="margin-top: 1.25rem">筛选</p>
+      <div class="filter-row">
+        <button type="button" class="filter-chip is-on">全部</button>
+        <button type="button" class="filter-chip">有推荐</button>
+        <button type="button" class="filter-chip">本周更新</button>
+        <button type="button" class="filter-chip">专题 A</button>
+      </div>
+      <div class="card entry-card" style="margin-top: 1rem">
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.75rem">
+          <span class="type-chip chip-concept">concept</span>
+          <span class="type-chip chip-method">method</span>
+        </div>
+        <h2 class="font-heading" style="font-size: 21px; margin: 0">多标签条目示例</h2>
+        <p style="color: var(--muted-foreground); font-size: 15px; margin: 0.5rem 0 0">筛选 chip 选中态用 accent + sky 边框。</p>
+      </div>
+    </main>
+  </body>
+</html>
