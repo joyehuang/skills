@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>状态 · 云备份</title>
+<title>云备份助手</title>
 <link rel="stylesheet" href="shared.css" />
 </head>
 <body>
@@ -11,26 +11,30 @@
   <div class="page-frame site-header-inner">
     <a class="brand" href="#"><span class="filo-avatar" aria-hidden="true"></span><span>
       <div class="brand-name font-heading">云备份助手</div>
-      <div class="brand-tagline">同步服务</div>
+      <div class="brand-tagline">文件同步与恢复</div>
     </span></a>
-    <nav class="nav-desktop" aria-label="主导航">
-      <a href="#" class="is-active">首页</a>
-      <a href="#" >设置</a>
-      <a href="#">帮助</a>
-    </nav>
+    <nav class="nav-desktop" aria-label="主导航"><a href="#" class="is-active">首页</a><a href="#" >备份</a><a href="#" >恢复</a><a href="#" >账户</a></nav>
     <div style="display:flex;align-items:center;gap:.5rem;margin-left:auto">
+      <a class="version-pill" href="#">公告</a>
       <span class="header-search" role="search">搜索…<kbd>⌘K</kbd></span>
+      <a class="btn btn-outline" href="#" style="min-height:40px">注册</a>
       <a class="btn btn-primary" href="#">登录</a>
       <button type="button" class="nav-mobile-toggle hit-area" aria-label="菜单">≡</button>
     </div>
   </div>
 </header>
-<main id="main" class="page-frame"><div class="page-intro"><h1 class="font-heading">异常与空状态</h1></div>
-<div style="display:grid;gap:2rem;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))">
-<section class="card state-view"><div class="filo-mascot-lg think" aria-hidden="true"></div><h2 class="font-heading">正在同步</h2><p>通常不超过一分钟，你可以先浏览本地副本。</p></section>
-<section class="card state-view"><div class="filo-mascot-lg" aria-hidden="true"></div><h2 class="font-heading">没有匹配文件</h2><p>换个关键词，或查看全部备份集。</p><button class="btn btn-outline">查看全部</button></section>
-<section class="card state-view"><div class="filo-mascot-lg" aria-hidden="true"></div><h2 class="font-heading">页面不存在</h2><p>链接可能已过期，返回首页继续浏览。</p><a class="btn btn-primary" href="#">回首页</a></section>
-<section class="card state-view"><div class="filo-mascot-lg" aria-hidden="true"></div><h2 class="font-heading">连接暂时不可用</h2><p>服务正在恢复，请稍后重试。</p><button class="btn btn-primary">重试</button></section></div></main>
-<footer class="site-footer"><p style="margin:0">示例页 · 非真实产品 · 无 PII</p></footer>
+<main id="main" class="page-frame">
+<div class="promo-banner"><p>增量同步、版本回溯与团队共享空间；异常时仍可浏览本地副本。… 本周活动与库存同步更新。</p><a class="btn btn-outline" href="#" style="min-height:40px">查看定价</a></div>
+<div class="hero-split">
+  <div class="hero-copy"><div class="eyebrow font-heading">Sync</div><h1 class="font-heading">多端文件自动备份</h1><p>增量同步、版本回溯与团队共享空间；异常时仍可浏览本地副本。</p>
+  <div class="hero-search"><input class="input" placeholder="搜索本页内容…" /><button type="button" class="btn btn-primary">搜索</button></div></div>
+  <div class="hero-visual card"><div class="filo-mascot-xl" aria-hidden="true"></div></div>
+</div><div class="stat-grid" style="margin-top:2rem"><div class="card stat-card"><div class="stat-label">已保护文件</div><div class="stat-value">18,402</div></div><div class="card stat-card"><div class="stat-label">今日同步</div><div class="stat-value">326</div></div><div class="card stat-card"><div class="stat-label">平均延迟</div><div class="stat-value">1.2s</div></div><div class="card stat-card"><div class="stat-label">可用性</div><div class="stat-value">99.9%</div><div class="stat-delta">30 天</div></div></div><div class="section-head"><h2 class="font-heading">服务状态示例</h2></div><div class="entry-grid"><section class="card state-view"><div class="filo-mascot-lg think" aria-hidden="true"></div><h2 class="font-heading">正在同步</h2><p>通常不超过一分钟，你可以先浏览本地副本。</p><button class="btn btn-outline">操作</button></section><section class="card state-view"><div class="filo-mascot-lg think" aria-hidden="true"></div><h2 class="font-heading">没有匹配文件</h2><p>换个关键词，或查看全部备份集。</p><button class="btn btn-outline">操作</button></section><section class="card state-view"><div class="filo-mascot-lg think" aria-hidden="true"></div><h2 class="font-heading">页面不存在</h2><p>链接可能已过期，返回首页继续浏览。</p><button class="btn btn-outline">操作</button></section><section class="card state-view"><div class="filo-mascot-lg think" aria-hidden="true"></div><h2 class="font-heading">连接暂时不可用</h2><p>服务正在恢复，请稍后重试。</p><button class="btn btn-outline">操作</button></section></div><div class="section-head"><h2 class="font-heading">恢复流程</h2></div><div class="step-grid"><article class="card step-card"><div class="step-num">01</div><h3 class="font-heading">备份集</h3><p>按日期或设备筛选。</p></article><article class="card step-card"><div class="step-num">02</div><h3 class="font-heading">文件树</h3><p>恢复前可查看版本差异。</p></article><article class="card step-card"><div class="step-num">03</div><h3 class="font-heading">写入位置</h3><p>默认恢复到原路径。</p></article><article class="card step-card"><div class="step-num">04</div><h3 class="font-heading">校验</h3><p>生成恢复报告。</p></article></div><div class="section-head"><h2 class="font-heading">FAQ</h2></div><div class="faq-list"><details><summary>本地副本保留多久？</summary><p>默认 30 天，可在设置中延长。</p></details><details><summary>误删如何找回？</summary><p>进入回收站或使用版本回溯。</p></details></div><section class="footer-cta"><div><h2 class="font-heading">升级到团队版</h2><p>共享空间、审计日志与优先支持。</p></div><a class="btn btn-outline" href="#">比较方案</a></section></main>
+<footer class="site-footer page-frame">
+  <div class="footer-inner">
+    <p class="footer-note">文件同步与恢复 · 云备份助手 官方页面。</p>
+    <nav class="footer-links"><a href="#">关于</a><a href="#">隐私说明</a><a href="#">使用条款</a><a href="#">联系</a></nav>
+  </div>
+</footer>
 </body>
 </html>

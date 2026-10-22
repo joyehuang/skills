@@ -306,6 +306,14 @@ select:focus-visible {
   background: #e1ddfb;
   color: #4a3c9e;
 }
+.chip-career {
+  background: #cdeedb;
+  color: #1f6a43;
+}
+.chip-company {
+  background: #d2ecef;
+  color: #19636b;
+}
 
 .mark {
   background: var(--filo-cream);
@@ -1119,4 +1127,193 @@ select {
   flex: 1;
   height: 1px;
   background: var(--border);
+}
+
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.footer-note {
+  margin: 0;
+  max-width: 28rem;
+  line-height: 1.6;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 13px;
+}
+
+.footer-links a {
+  color: var(--muted-foreground);
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  color: var(--link);
+}
+
+.hero-visual {
+  min-height: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: color-mix(in srgb, var(--sky-soft) 65%, var(--card));
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.filo-mascot-xl {
+  width: 148px;
+  height: 148px;
+  border-radius: 9999px;
+  background: linear-gradient(180deg, var(--filo-sky) 0%, var(--filo-sky) 52%, var(--filo-cream) 52%);
+  border: 1px solid var(--border);
+  position: relative;
+}
+
+.filo-mascot-xl::before {
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 9999px;
+  background: var(--filo-dot);
+  top: 42px;
+  left: 52px;
+  box-shadow: -32px 0 0 var(--filo-dot);
+}
+
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+
+@media (max-width: 767px) {
+  .two-col {
+    grid-template-columns: 1fr;
+  }
+}
+
+.testimonial-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 767px) {
+  .testimonial-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.quote-card {
+  padding: 1.25rem 1.35rem;
+  border-radius: var(--radius);
+}
+
+.quote-card p {
+  margin: 0 0 0.75rem;
+  font-size: 15px;
+  line-height: 1.75;
+}
+
+.quote-card footer {
+  font-size: 13px;
+  color: var(--muted-foreground);
+}
+
+.faq-list {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--card);
+  padding: 0 1.25rem;
+}
+
+.faq-list details {
+  border-bottom: 1px solid var(--border);
+  padding: 1rem 0;
+}
+
+.faq-list details:last-child {
+  border-bottom: none;
+}
+
+.faq-list summary {
+  cursor: pointer;
+  font-weight: 600;
+  list-style: none;
+}
+
+.faq-list summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-list p {
+  margin: 0.65rem 0 0;
+  color: var(--muted-foreground);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.step-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 767px) {
+  .step-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.step-card {
+  padding: 1.15rem 1.25rem;
+  border-radius: var(--radius);
+}
+
+.step-card .step-num {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 12px;
+  color: var(--muted-foreground);
+  margin-bottom: 0.35rem;
+}
+
+.step-card h3 {
+  margin: 0 0 0.35rem;
+  font-size: 1rem;
+}
+
+.step-card p {
+  margin: 0;
+  font-size: 13px;
+  color: var(--muted-foreground);
+  line-height: 1.6;
+}
+
+.entry-grid-6 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 1023px) {
+  .entry-grid-6 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  .entry-grid-6 {
+    grid-template-columns: 1fr;
+  }
 }

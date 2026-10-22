@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>天气 · 近场预报</title>
+<title>近场天气</title>
 <link rel="stylesheet" href="shared.css" />
 </head>
 <body>
@@ -11,21 +11,30 @@
   <div class="page-frame site-header-inner">
     <a class="brand" href="#"><span class="filo-avatar" aria-hidden="true"></span><span>
       <div class="brand-name font-heading">近场天气</div>
-      <div class="brand-tagline">小时级预报</div>
+      <div class="brand-tagline">小时级城区预报</div>
     </span></a>
-    <nav class="nav-desktop" aria-label="主导航">
-      <a href="#" class="is-active">首页</a>
-      <a href="#" >设置</a>
-      <a href="#">帮助</a>
-    </nav>
+    <nav class="nav-desktop" aria-label="主导航"><a href="#" class="is-active">首页</a><a href="#" >地图</a><a href="#" >预警</a><a href="#" >设置</a></nav>
     <div style="display:flex;align-items:center;gap:.5rem;margin-left:auto">
+      <a class="version-pill" href="#">公告</a>
       <span class="header-search" role="search">搜索…<kbd>⌘K</kbd></span>
+      <a class="btn btn-outline" href="#" style="min-height:40px">注册</a>
       <a class="btn btn-primary" href="#">登录</a>
       <button type="button" class="nav-mobile-toggle hit-area" aria-label="菜单">≡</button>
     </div>
   </div>
 </header>
-<main id="main" class="page-frame"><div class="page-intro"><h1 class="font-heading">城区预报</h1></div><div class="stat-grid"><div class="card stat-card"><div class="stat-label">现在</div><div class="stat-value">18°</div><div class="stat-delta">多云</div></div><div class="card stat-card"><div class="stat-label">14:00</div><div class="stat-value">20°</div></div><div class="card stat-card"><div class="stat-label">降水</div><div class="stat-value">10%</div></div><div class="card stat-card"><div class="stat-label">风力</div><div class="stat-value">2 级</div></div></div><div class="card" style="padding:1.5rem;margin-top:1.25rem"><h2 class="font-heading" style="font-size:1.1rem">24 小时趋势</h2><div class="chart-bar-row"><span>08</span><div class="chart-bar"><span style="width:40%"></span></div></div><div class="chart-bar-row"><span>12</span><div class="chart-bar"><span style="width:65%"></span></div></div><div class="chart-bar-row"><span>18</span><div class="chart-bar"><span style="width:30%"></span></div></div></div></main>
-<footer class="site-footer"><p style="margin:0">示例页 · 非真实产品 · 无 PII</p></footer>
+<main id="main" class="page-frame">
+<div class="promo-banner"><p>基于多源观测融合，提供降水、风力与体感温度；支持出行建议。… 本周活动与库存同步更新。</p><a class="btn btn-outline" href="#" style="min-height:40px">查看地图</a></div>
+<div class="hero-split">
+  <div class="hero-copy"><div class="eyebrow font-heading">Forecast</div><h1 class="font-heading">城区小时级预报</h1><p>基于多源观测融合，提供降水、风力与体感温度；支持出行建议。</p>
+  <div class="hero-search"><input class="input" placeholder="搜索本页内容…" /><button type="button" class="btn btn-primary">搜索</button></div></div>
+  <div class="hero-visual card"><div class="filo-mascot-xl" aria-hidden="true"></div></div>
+</div><div class="stat-grid" style="margin-top:2rem"><div class="card stat-card"><div class="stat-label">现在</div><div class="stat-value">18°</div><div class="stat-delta">多云</div></div><div class="card stat-card"><div class="stat-label">14:00</div><div class="stat-value">20°</div></div><div class="card stat-card"><div class="stat-label">降水</div><div class="stat-value">10%</div></div><div class="card stat-card"><div class="stat-label">风力</div><div class="stat-value">2 级</div></div></div><div class="section-head"><h2 class="font-heading">24 小时趋势</h2></div><div class="card" style="padding:1.25rem;margin-top:1rem"><div class="chart-bar-row"><span>08</span><div class="chart-bar"><span style="width:40%"></span></div></div><div class="chart-bar-row"><span>12</span><div class="chart-bar"><span style="width:65%"></span></div></div><div class="chart-bar-row"><span>16</span><div class="chart-bar"><span style="width:52%"></span></div></div><div class="chart-bar-row"><span>20</span><div class="chart-bar"><span style="width:30%"></span></div></div></div><div class="section-head"><h2 class="font-heading">分区概览</h2></div><div class="data-table-wrap"><table class="data-table"><thead><tr><th>区域</th><th>温度</th><th>降水</th><th>建议</th></tr></thead><tbody><tr><td class="font-mono">城北</td><td>17°</td><td>5%</td><td>适宜骑行</td></tr><tr><td class="font-mono">滨江</td><td>19°</td><td>20%</td><td>带伞</td></tr><tr><td class="font-mono">高新</td><td>18°</td><td>8%</td><td>适宜户外</td></tr></tbody></table></div><div class="section-head"><h2 class="font-heading">用户说</h2></div><div class="testimonial-grid"><blockquote class="card quote-card"><p>「小时级更新比系统天气 App 更贴近路口。」</p><footer>— 用户 · R</footer></blockquote><blockquote class="card quote-card"><p>「预警推送不会刷屏，刚好够用。」</p><footer>— 用户 · T</footer></blockquote></div><section class="footer-cta"><div><h2 class="font-heading">开通出行订阅</h2><p>每日早 7 点推送穿衣与雨具建议。</p></div><a class="btn btn-outline" href="#">免费试用</a></section></main>
+<footer class="site-footer page-frame">
+  <div class="footer-inner">
+    <p class="footer-note">小时级城区预报 · 近场天气 官方页面。</p>
+    <nav class="footer-links"><a href="#">关于</a><a href="#">隐私说明</a><a href="#">使用条款</a><a href="#">联系</a></nav>
+  </div>
+</footer>
 </body>
 </html>

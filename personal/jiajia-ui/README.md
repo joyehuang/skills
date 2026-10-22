@@ -16,9 +16,9 @@
 
 每份产物按 **8 条硬性约束**检查：暖纸底+墨蓝字（非纯黑）、卡片 **仅 1px 边框无 drop-shadow**、EntryCard **`rounded-[20px]`**、primary **墨蓝底**（非天蓝主按钮）、天空蓝 focus/hover、TypeChip AA 配色、三字体分工（Nunito+站酷 / Noto Sans SC / IBM Plex Mono）、`prefers-reduced-motion` 兜底。
 
-**结果：20/20 HTML 通过；40/40 截图入库。**
+**结果：20/20 HTML 通过；40/40 截图入库。** 每页含 hero、Filo 视觉、统计、多段内容（表格/图表/FAQ/评价等）与 FooterCta，**无** meta 免责声明。
 
-复拍：`cd personal/jiajia-ui/scripts && npm install && npx playwright install chromium && node capture-screenshots.mjs`
+复拍：`cd personal/jiajia-ui/scripts && npm install && npx playwright install chromium && node build-rich-pages.mjs && node capture-screenshots.mjs`
 
 ## 案例画廊
 
@@ -68,7 +68,7 @@
 ## 结论
 
 - **skill 即规范**：tokens + 原语 + 8 条硬约束足以在任意形态、任意泛化行业复现夹夹公开站视觉；**20/20** 案例零「纯黑+重阴影+天蓝主按钮」翻车。
-- **模型常忽略的（已在 SKILL.md 加粗）**：卡片 `box-shadow`、primary 误用 `--filo-sky`、纯 `#000` 正文、EntryCard 圆角不够（应用 20px）、跳过 `font-heading`、TypeChip 随机色。
+- **模型常忽略的（已在 SKILL.md 加粗）**：卡片 `box-shadow`、primary 误用 `--filo-sky`、纯 `#000` 正文、EntryCard 圆角不够（应用 20px）、跳过 `font-heading`、TypeChip 随机色、**页面过短**（仅标题+两三卡）——需补 stats/表格/FAQ/FooterCta 才达 handdrawn-ui 密度。
 - **稳定项**：暖纸/白卡/1px 边框、墨蓝 primary、sky focus ring、宽行距正文、Filo 占位与 StateView 结构。
 - **执行建议**：要快且稳用 **Claude Opus 5.5**；要布局多样性用 **GPT-5.6-Sol**；本仓库 r1 HTML 由上述五模型族各一稿（见 `examples/r1-*.html`）。
 - **权威实现**：Joye-Co/qqbot `dashboard-ui/`（私有）；线上参照 jiajia.fun 公开路由。

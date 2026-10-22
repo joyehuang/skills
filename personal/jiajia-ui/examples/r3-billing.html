@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>账单 · 城商银行</title>
+<title>城商银行</title>
 <link rel="stylesheet" href="shared.css" />
 </head>
 <body>
@@ -11,21 +11,30 @@
   <div class="page-frame site-header-inner">
     <a class="brand" href="#"><span class="filo-avatar" aria-hidden="true"></span><span>
       <div class="brand-name font-heading">城商银行</div>
-      <div class="brand-tagline">个人账单摘要</div>
+      <div class="brand-tagline">个人账单与还款</div>
     </span></a>
-    <nav class="nav-desktop" aria-label="主导航">
-      <a href="#" class="is-active">首页</a>
-      <a href="#" >设置</a>
-      <a href="#">帮助</a>
-    </nav>
+    <nav class="nav-desktop" aria-label="主导航"><a href="#" >首页</a><a href="#" class="is-active">账单</a><a href="#" >还款</a><a href="#" >理财</a></nav>
     <div style="display:flex;align-items:center;gap:.5rem;margin-left:auto">
+      <a class="version-pill" href="#">公告</a>
       <span class="header-search" role="search">搜索…<kbd>⌘K</kbd></span>
+      <a class="btn btn-outline" href="#" style="min-height:40px">注册</a>
       <a class="btn btn-primary" href="#">登录</a>
       <button type="button" class="nav-mobile-toggle hit-area" aria-label="菜单">≡</button>
     </div>
   </div>
 </header>
-<main id="main" class="page-frame"><div class="page-intro"><h1 class="font-heading">10 月账单摘要</h1><p style="color:var(--muted-foreground)">示例数据，非真实账户。</p></div><div class="data-table-wrap"><table class="data-table"><thead><tr><th>日期</th><th>摘要</th><th>金额</th></tr></thead><tbody><tr><td class="font-mono">10-02</td><td>自动转存</td><td class="font-mono">+2,000.00</td></tr><tr><td class="font-mono">10-05</td><td>生活缴费</td><td class="font-mono">-186.50</td></tr><tr><td class="font-mono">10-12</td><td>信用卡还款</td><td class="font-mono">-3,420.00</td></tr></tbody></table></div><div class="card" style="padding:1.25rem;margin-top:1rem"><p style="margin:0">本期应还 <strong class="font-mono">4,280.00</strong> · 还款日 10-28</p><button class="btn btn-primary" style="margin-top:1rem">预约还款</button></div></main>
-<footer class="site-footer"><p style="margin:0">示例页 · 非真实产品 · 无 PII</p></footer>
+<main id="main" class="page-frame">
+<div class="promo-banner"><p>汇总信用卡、生活缴费与自动转存；支持预约还款与分期试算。… 本周活动与库存同步更新。</p><a class="btn btn-outline" href="#" style="min-height:40px">预约还款</a></div>
+<div class="hero-split">
+  <div class="hero-copy"><div class="eyebrow font-heading">Billing</div><h1 class="font-heading">10 月账单摘要</h1><p>汇总信用卡、生活缴费与自动转存；支持预约还款与分期试算。</p>
+  <div class="hero-search"><input class="input" placeholder="搜索本页内容…" /><button type="button" class="btn btn-primary">搜索</button></div></div>
+  <div class="hero-visual card"><div class="filo-mascot-xl" aria-hidden="true"></div></div>
+</div><div class="stat-grid" style="margin-top:2rem"><div class="card stat-card"><div class="stat-label">本期应还</div><div class="stat-value">4,280</div><div class="stat-delta">元</div></div><div class="card stat-card"><div class="stat-label">最低还</div><div class="stat-value">428</div></div><div class="card stat-card"><div class="stat-label">还款日</div><div class="stat-value">10-28</div></div><div class="card stat-card"><div class="stat-label">可用额度</div><div class="stat-value">12,400</div></div></div><div class="section-head"><h2 class="font-heading">交易明细</h2><a href="#">导出</a></div><div class="data-table-wrap"><table class="data-table"><thead><tr><th>日期</th><th>摘要</th><th>金额</th><th>类型</th></tr></thead><tbody><tr><td class="font-mono">10-02</td><td>自动转存</td><td>+2,000.00</td><td>储蓄</td></tr><tr><td class="font-mono">10-05</td><td>生活缴费</td><td>-186.50</td><td>支出</td></tr><tr><td class="font-mono">10-12</td><td>信用卡还款</td><td>-3,420.00</td><td>还款</td></tr><tr><td class="font-mono">10-15</td><td>超市消费</td><td>-328.40</td><td>消费</td></tr></tbody></table></div><div class="section-head"><h2 class="font-heading">还款方式</h2></div><div class="step-grid"><article class="card step-card"><div class="step-num">01</div><h3 class="font-heading">一次还清</h3><p>无手续费。</p></article><article class="card step-card"><div class="step-num">02</div><h3 class="font-heading">保留循环</h3><p>按日计息。</p></article><article class="card step-card"><div class="step-num">03</div><h3 class="font-heading">3/6/12 期</h3><p>试算后确认。</p></article><article class="card step-card"><div class="step-num">04</div><h3 class="font-heading">自动扣款</h3><p>还款日前一天执行。</p></article></div><section class="footer-cta"><div><h2 class="font-heading">需要分期？</h2><p>在线试算每期本金与利息。</p></div><a class="btn btn-outline" href="#">打开试算器</a></section></main>
+<footer class="site-footer page-frame">
+  <div class="footer-inner">
+    <p class="footer-note">个人账单与还款 · 城商银行 官方页面。</p>
+    <nav class="footer-links"><a href="#">关于</a><a href="#">隐私说明</a><a href="#">使用条款</a><a href="#">联系</a></nav>
+  </div>
+</footer>
 </body>
 </html>
