@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>仓配中心 · 运营仪表盘</title>
+<link rel="stylesheet" href="shared.css" />
+</head>
+<body>
+<header class="site-header">
+  <div class="page-frame site-header-inner">
+    <a class="brand" href="#"><span class="filo-avatar" aria-hidden="true"></span><span>
+      <div class="brand-name font-heading">仓配中心</div>
+      <div class="brand-tagline">库存与出库</div>
+    </span></a>
+    <nav class="nav-desktop" aria-label="主导航"><a href="#" class="is-active">概览</a><a href="#" >出库</a><a href="#" >补货</a><a href="#" >报表</a></nav>
+    <div style="display:flex;align-items:center;gap:.5rem;margin-left:auto">
+      <a class="version-pill" href="#">公告</a>
+      <span class="header-search" role="search">搜索…<kbd>⌘K</kbd></span>
+      <a class="btn btn-outline" href="#" style="min-height:40px">注册</a>
+      <a class="btn btn-primary" href="#">登录</a>
+      <button type="button" class="nav-mobile-toggle hit-area" aria-label="菜单">≡</button>
+    </div>
+  </div>
+</header>
+<main id="main" class="page-frame"><div class="shell-layout" style="min-height:auto;margin:0 -1.25rem"><aside class="shell-sidebar"><a class="is-active" href="#">概览</a><a href="#">出库</a><a href="#">补货</a><a href="#">异常</a><a href="#">设置</a></aside><div class="shell-main">
+<div class="page-intro" style="padding-top:0"><h1 class="font-heading">今日运营概览</h1><p style="color:var(--muted-foreground)">拣货、复核与在途车辆实时汇总。</p></div>
+<div class="stat-grid" style="margin-top:2rem"><div class="card stat-card"><div class="stat-label">待拣单</div><div class="stat-value">128</div><div class="stat-delta">+6</div></div><div class="card stat-card"><div class="stat-label">准时率</div><div class="stat-value">94%</div></div><div class="card stat-card"><div class="stat-label">异常件</div><div class="stat-value">6</div><div class="stat-delta">需跟进</div></div><div class="card stat-card"><div class="stat-label">在途车辆</div><div class="stat-value">42</div></div></div>
+<div class="section-head"><h2 class="font-heading">SKU 监控</h2><a href="#">导出</a></div><div class="data-table-wrap"><table class="data-table"><thead><tr><th>SKU</th><th>库位</th><th>余量</th><th>状态</th></tr></thead><tbody><tr><td class="font-mono">BX-204</td><td>A-12</td><td>340</td><td>正常</td></tr><tr><td class="font-mono">BX-881</td><td>C-03</td><td>12</td><td>低库存</td></tr><tr><td class="font-mono">PK-119</td><td>B-07</td><td>0</td><td>待补货</td></tr><tr><td class="font-mono">PK-442</td><td>D-01</td><td>88</td><td>正常</td></tr></tbody></table></div>
+<div class="section-head"><h2 class="font-heading">环节完成度</h2></div><div class="card" style="padding:1.25rem;margin-top:1rem"><div class="chart-bar-row"><span>拣货</span><div class="chart-bar"><span style="width:72%"></span></div></div><div class="chart-bar-row"><span>复核</span><div class="chart-bar"><span style="width:58%"></span></div></div><div class="chart-bar-row"><span>装车</span><div class="chart-bar"><span style="width:81%"></span></div></div><div class="chart-bar-row"><span>签收</span><div class="chart-bar"><span style="width:67%"></span></div></div></div>
+<div class="section-head"><h2 class="font-heading">值班备注</h2></div><div class="testimonial-grid"><blockquote class="card quote-card"><p>「B 区电梯检修，大宗货物改走南通道。」</p><footer>— 值班长 · 08:30</footer></blockquote><blockquote class="card quote-card"><p>「低库存 SKU 已触发补货单 #8821。」</p><footer>— 系统 · 09:12</footer></blockquote></div>
+</div></div></main>
+<footer class="site-footer page-frame">
+  <div class="footer-inner">
+    <p class="footer-note">库存与出库 · 仓配中心 官方页面。</p>
+    <nav class="footer-links"><a href="#">关于</a><a href="#">隐私说明</a><a href="#">使用条款</a><a href="#">联系</a></nav>
+  </div>
+</footer>
+</body>
+</html>
