@@ -4,39 +4,40 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const root = path.join(__dirname, "..");
-const examplesDir = path.join(root, "examples");
-const assetsDir = path.join(root, "assets");
+const examplesDir = path.join(__dirname, "..", "examples");
 
-const pages = [
-  "landing",
-  "card-list",
-  "form-login",
-  "states",
-  "qa-chat",
-  "mobile-nav",
-  "dashboard",
-  "settings",
-  "profile-home",
-  "article-longread",
-  "search-results",
-  "notifications-toasts",
-  "modal-drawer",
-  "data-table",
-  "onboarding",
-  "tags-filters",
-  "filo-expressions",
-  "pricing",
+/** Gallery JPG basename (no extension) → source HTML basename */
+const cases = [
+  "r1-opus",
+  "r1-codex",
+  "r1-composer",
+  "r1-gemini",
+  "r1-grok",
+  "r2-form",
+  "r2-landing",
+  "r2-dashboard",
+  "r2-list",
+  "r2-states",
+  "r3-vet",
+  "r3-bookstore",
+  "r3-weather",
+  "r3-billing",
+  "r3-education",
+  "r3-plants",
+  "r3-rental",
+  "r3-volunteer",
+  "r3-museum",
+  "r3-pharmacy",
 ];
 
 const widths = [1280, 390];
 
-await mkdir(assetsDir, { recursive: true });
+await mkdir(examplesDir, { recursive: true });
 
 const browser = await chromium.launch();
 const inventory = [];
 
-for (const name of pages) {
+for (const name of cases) {
   const filePath = path.join(examplesDir, `${name}.html`);
   const url = `file://${filePath}`;
   for (const width of widths) {
@@ -44,18 +45,20 @@ for (const name of pages) {
     const context = await browser.newContext({
       viewport: { width, height },
       deviceScaleFactor: 1,
+      locale: "zh-CN",
     });
     const page = await context.newPage();
-    await page.goto(url, { waitUntil: "networkidle", timeout: 60000 });
-    await page.waitForTimeout(400);
-    const out = path.join(assetsDir, `${name}-${width}.jpg`);
+    await page.goto(url, { waitUntil: "networkidle", timeout: 90000 });
+    await page.waitForTimeout(500);
+    const suffix = width === 1280 ? "" : "-390";
+    const out = path.join(examplesDir, `${name}${suffix}.jpg`);
     await page.screenshot({
       path: out,
       type: "jpeg",
       quality: 82,
       fullPage: true,
     });
-    inventory.push({ path: `personal/jiajia-ui/assets/${name}-${width}.jpg`, width });
+    inventory.push(`personal/jiajia-ui/examples/${name}${suffix}.jpg`);
     await context.close();
   }
 }

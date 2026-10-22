@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>仪表盘 · 仓配中心</title>
+<link rel="stylesheet" href="shared.css" />
+</head>
+<body>
+<header class="site-header">
+  <div class="page-frame site-header-inner">
+    <a class="brand" href="#"><span class="filo-avatar" aria-hidden="true"></span><span>
+      <div class="brand-name font-heading">仓配中心</div>
+      <div class="brand-tagline">库存与出库</div>
+    </span></a>
+    <nav class="nav-desktop" aria-label="主导航">
+      <a href="#" class="is-active">首页</a>
+      <a href="#" >设置</a>
+      <a href="#">帮助</a>
+    </nav>
+    <div style="display:flex;align-items:center;gap:.5rem;margin-left:auto">
+      <span class="header-search" role="search">搜索…<kbd>⌘K</kbd></span>
+      <a class="btn btn-primary" href="#">登录</a>
+      <button type="button" class="nav-mobile-toggle hit-area" aria-label="菜单">≡</button>
+    </div>
+  </div>
+</header>
+<main id="main" class="page-frame"><div class="shell-layout" style="min-height:auto;margin-top:0"><aside class="shell-sidebar"><a class="is-active" href="#">概览</a><a href="#">出库</a><a href="#">补货</a></aside>
+<div class="shell-main"><div class="page-intro" style="padding-top:0"><h1 class="font-heading">今日运营</h1></div>
+<div class="stat-grid"><div class="card stat-card"><div class="stat-label">待拣单</div><div class="stat-value">128</div></div><div class="card stat-card"><div class="stat-label">准时率</div><div class="stat-value">94%</div></div><div class="card stat-card"><div class="stat-label">异常件</div><div class="stat-value">6</div></div><div class="card stat-card"><div class="stat-label">在途车辆</div><div class="stat-value">42</div></div></div>
+<div class="data-table-wrap" style="margin-top:1.25rem"><table class="data-table"><thead><tr><th>SKU</th><th>库位</th><th>余量</th><th>状态</th></tr></thead><tbody>
+<tr><td class="font-mono">BX-204</td><td>A-12</td><td>340</td><td><span class="type-chip chip-method">正常</span></td></tr>
+<tr><td class="font-mono">BX-881</td><td>C-03</td><td>12</td><td><span class="type-chip chip-pick">低库存</span></td></tr></tbody></table></div>
+<div style="margin-top:1.25rem"><div class="chart-bar-row"><span>拣货</span><div class="chart-bar"><span style="width:72%"></span></div><span class="font-mono">72%</span></div>
+<div class="chart-bar-row"><span>复核</span><div class="chart-bar"><span class="coral" style="width:58%"></span></div><span class="font-mono">58%</span></div></div></div></div></main>
+<footer class="site-footer"><p style="margin:0">示例页 · 非真实产品 · 无 PII</p></footer>
+</body>
+</html>

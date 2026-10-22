@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>偏好 · DeskFlow</title>
+<link rel="stylesheet" href="shared.css" />
+</head>
+<body>
+<header class="site-header">
+  <div class="page-frame site-header-inner">
+    <a class="brand" href="#"><span class="filo-avatar" aria-hidden="true"></span><span>
+      <div class="brand-name font-heading">DeskFlow</div>
+      <div class="brand-tagline">办公空间预约</div>
+    </span></a>
+    <nav class="nav-desktop" aria-label="主导航">
+      <a href="#" >首页</a>
+      <a href="#" class="is-active">设置</a>
+      <a href="#">帮助</a>
+    </nav>
+    <div style="display:flex;align-items:center;gap:.5rem;margin-left:auto">
+      <span class="header-search" role="search">搜索…<kbd>⌘K</kbd></span>
+      <a class="btn btn-primary" href="#">登录</a>
+      <button type="button" class="nav-mobile-toggle hit-area" aria-label="菜单">≡</button>
+    </div>
+  </div>
+</header>
+<main id="main" class="page-frame"><div class="promo-banner"><p>偏好设置仅影响你的预约表单默认值，不会改动他人日历。</p></div>
+<div class="page-intro"><h1 class="font-heading">预约偏好</h1></div>
+<div class="card" style="padding:1.75rem;max-width:640px"><div class="field" style="margin-bottom:1.25rem"><label class="label">默认会议时长</label><select class="input"><option>30 分钟</option><option selected>45 分钟</option></select></div>
+<div class="field" style="margin-bottom:1.25rem"><label class="label">楼层偏好</label><input class="input" value="3F 开放协作区" /></div>
+<div class="field"><label class="label">提醒</label><p class="field-hint">勾选后将写入你的通知队列。</p><label style="display:flex;gap:.5rem;margin-top:.5rem"><input type="checkbox" checked /> 站内提醒</label></div>
+<p class="field-error" style="display:none">示例：请选择至少一项房间能力。</p>
+<button type="button" class="btn btn-primary" style="margin-top:1.25rem">保存偏好</button></div></main>
+<footer class="site-footer"><p style="margin:0">示例页 · 非真实产品 · 无 PII</p></footer>
+</body>
+</html>

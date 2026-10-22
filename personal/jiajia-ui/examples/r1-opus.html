@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>偏好 · DeskFlow</title>
+<link rel="stylesheet" href="shared.css" />
+</head>
+<body>
+<header class="site-header">
+  <div class="page-frame site-header-inner">
+    <a class="brand" href="#"><span class="filo-avatar" aria-hidden="true"></span><span>
+      <div class="brand-name font-heading">DeskFlow</div>
+      <div class="brand-tagline">办公空间预约</div>
+    </span></a>
+    <nav class="nav-desktop" aria-label="主导航">
+      <a href="#" >首页</a>
+      <a href="#" class="is-active">设置</a>
+      <a href="#">帮助</a>
+    </nav>
+    <div style="display:flex;align-items:center;gap:.5rem;margin-left:auto">
+      <span class="header-search" role="search">搜索…<kbd>⌘K</kbd></span>
+      <a class="btn btn-primary" href="#">登录</a>
+      <button type="button" class="nav-mobile-toggle hit-area" aria-label="菜单">≡</button>
+    </div>
+  </div>
+</header>
+<main id="main" class="page-frame"><div class="page-intro"><div class="eyebrow font-heading">Preferences</div><h1 class="font-heading">会议室预约偏好</h1><p style="color:var(--muted-foreground);max-width:36rem;margin:0">设置默认时长、常用楼层与提醒方式。保存后对 DeskFlow 全部成员生效。</p></div>
+<div style="display:grid;gap:1rem;max-width:720px">
+<div class="card" style="padding:1.5rem"><h2 class="font-heading" style="font-size:1.1rem;margin:0 0 1rem">默认时长</h2>
+<div class="filter-row"><button type="button" class="filter-chip is-on">30 分钟</button><button type="button" class="filter-chip">45 分钟</button><button type="button" class="filter-chip">60 分钟</button></div></div>
+<div class="card" style="padding:1.5rem"><h2 class="font-heading" style="font-size:1.1rem;margin:0 0 1rem">房间筛选</h2>
+<label class="label">优先楼层</label><select class="input" style="max-width:280px"><option>3F · 开放区</option><option>5F · 静音</option></select>
+<div class="filter-row" style="margin-top:1rem"><button type="button" class="filter-chip is-on">需要显示器</button><button type="button" class="filter-chip">需要白板</button></div></div>
+<div class="card" style="padding:1.5rem"><h2 class="font-heading" style="font-size:1.1rem;margin:0 0 1rem">通知</h2>
+<p class="field-hint">会议开始前 10 分钟发送提醒。</p>
+<label style="display:flex;align-items:center;gap:.75rem;margin-top:.75rem"><input type="checkbox" checked /> 邮件摘要（示例域）</label></div>
+<div style="display:flex;gap:.75rem;flex-wrap:wrap"><button type="button" class="btn btn-primary">保存偏好</button><button type="button" class="btn btn-outline">恢复默认</button></div></div></main>
+<footer class="site-footer"><p style="margin:0">示例页 · 非真实产品 · 无 PII</p></footer>
+</body>
+</html>

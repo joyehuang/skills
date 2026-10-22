@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>状态 · 云备份</title>
+<link rel="stylesheet" href="shared.css" />
+</head>
+<body>
+<header class="site-header">
+  <div class="page-frame site-header-inner">
+    <a class="brand" href="#"><span class="filo-avatar" aria-hidden="true"></span><span>
+      <div class="brand-name font-heading">云备份助手</div>
+      <div class="brand-tagline">同步服务</div>
+    </span></a>
+    <nav class="nav-desktop" aria-label="主导航">
+      <a href="#" class="is-active">首页</a>
+      <a href="#" >设置</a>
+      <a href="#">帮助</a>
+    </nav>
+    <div style="display:flex;align-items:center;gap:.5rem;margin-left:auto">
+      <span class="header-search" role="search">搜索…<kbd>⌘K</kbd></span>
+      <a class="btn btn-primary" href="#">登录</a>
+      <button type="button" class="nav-mobile-toggle hit-area" aria-label="菜单">≡</button>
+    </div>
+  </div>
+</header>
+<main id="main" class="page-frame"><div class="page-intro"><h1 class="font-heading">异常与空状态</h1></div>
+<div style="display:grid;gap:2rem;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))">
+<section class="card state-view"><div class="filo-mascot-lg think" aria-hidden="true"></div><h2 class="font-heading">正在同步</h2><p>通常不超过一分钟，你可以先浏览本地副本。</p></section>
+<section class="card state-view"><div class="filo-mascot-lg" aria-hidden="true"></div><h2 class="font-heading">没有匹配文件</h2><p>换个关键词，或查看全部备份集。</p><button class="btn btn-outline">查看全部</button></section>
+<section class="card state-view"><div class="filo-mascot-lg" aria-hidden="true"></div><h2 class="font-heading">页面不存在</h2><p>链接可能已过期，返回首页继续浏览。</p><a class="btn btn-primary" href="#">回首页</a></section>
+<section class="card state-view"><div class="filo-mascot-lg" aria-hidden="true"></div><h2 class="font-heading">连接暂时不可用</h2><p>服务正在恢复，请稍后重试。</p><button class="btn btn-primary">重试</button></section></div></main>
+<footer class="site-footer"><p style="margin:0">示例页 · 非真实产品 · 无 PII</p></footer>
+</body>
+</html>

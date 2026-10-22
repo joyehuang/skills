@@ -39,7 +39,8 @@ description: 夹夹（jiajia.fun）公开站的 UI/UX 设计系统——暖纸�
 - **动效极短**：切页 cross-fade ~140ms；按钮 `active:translate-y-px`；必须写 `prefers-reduced-motion` 全局兜底
 - **触控 44px**：图标/小链接加 `hit-area` 扩大点击区
 - **暗色走变量**：不写死 hex，让 `.dark` 能接管（暗色调色板在源码里标注为暂定）
-- Don't：毛玻璃、渐变 CTA、大面积珊瑚底、硬阴影卡片、手绘歪边框（handdrawn-ui）、生产环境外链字体、真实用户 PII/QQ 号/密钥
+- Don't：毛玻璃、渐变 CTA、大面积珊瑚底、**卡片 drop-shadow / 大 blur 阴影**、**天蓝 `--filo-sky` 作主按钮底色**、手绘歪边框（handdrawn-ui）、生产环境外链字体、真实用户 PII/QQ 号/密钥
+- **验证常见失误（r1/r2/r3 实测）**：模型爱写 `#000` 正文、给 `.card` 加 `box-shadow`、primary 按钮用天蓝、EntryCard 只用 `rounded-xl` 而非 **20px**、TypeChip 随意霓虹色——交付前对照文末检查清单。
 
 ## Design Tokens（直接粘贴可用）
 
@@ -268,7 +269,7 @@ a:hover {
 ## 静态示例与验证（本仓库）
 
 - 样式校准页：`examples/calibration-*.html` + `shared.css`（fontsource CDN 仅本地/Playwright；**生产必须自托管**）
-- 三轮验证（r1 模型矩阵 / r2 形态 / r3 行业）在 SKILL 定稿且校准通过后进行；JPG 命名 `examples/r1-*.jpg` 等，**禁止**提交线上站点截图
+- 三轮验证产物：`examples/r1-*.html`、`r2-*.html`、`r3-*.html` + 对应 `*.jpg` / `*-390.jpg`；**禁止**提交 jiajia.fun 线上截图
 
 ## 新页面落地流程
 
