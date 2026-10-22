@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>工具库 · 邻里共用站（校准页）</title>
+    <link rel="stylesheet" href="shared.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="page-frame site-header-inner">
+        <a class="brand" href="#">
+          <span class="filo-avatar" aria-hidden="true"></span>
+          <span>
+            <div class="brand-name font-heading">邻里工具库</div>
+            <div class="brand-tagline">社区物品借用与预约</div>
+          </span>
+        </a>
+        <nav class="nav-desktop" aria-label="主导航">
+          <a class="is-active" href="#">目录</a>
+          <a href="#">分类</a>
+          <a href="#">关于</a>
+          <button type="button" class="btn btn-outline" style="min-height: 36px; padding-inline: 0.75rem">更多</button>
+        </nav>
+        <div style="display: flex; align-items: center; gap: 0.5rem; margin-left: auto">
+          <a class="version-pill" href="#">站点说明 v0.1</a>
+          <span class="header-search" role="search">搜索工具…<kbd>⌘K</kbd></span>
+          <button type="button" class="btn btn-outline hit-area" style="min-height: 40px; display: none" aria-label="主题">
+            ○
+          </button>
+          <a class="btn btn-primary" href="#">登录</a>
+          <button type="button" class="nav-mobile-toggle hit-area" aria-label="打开菜单">≡</button>
+        </div>
+      </div>
+    </header>
+
+    <main id="main" class="page-frame">
+      <div class="promo-banner">
+        <p>登记后可预约借用时段、查看归还说明；未登录只能浏览公开目录。</p>
+        <a class="btn btn-primary" href="#" style="min-height: 40px">去登记</a>
+      </div>
+
+      <div class="hero-split">
+        <div class="hero-copy">
+          <div class="eyebrow font-heading">目录</div>
+          <h1 class="font-heading">需要电钻或折叠梯时，先看看邻居有没有闲置的。</h1>
+          <p>按分类浏览、按距离排序；每条物品有借用规则与损坏说明，避免口头约定遗漏。</p>
+          <div class="hero-search">
+            <input class="input" type="search" placeholder="搜索工具名称或用途…" />
+            <button type="button" class="btn btn-primary">搜索</button>
+          </div>
+        </div>
+        <div class="hero-feature">
+          <div class="filo-peek filo-avatar" style="width: 72px; height: 72px" aria-hidden="true"></div>
+          <article class="card entry-card">
+            <div class="entry-meta">
+              <span class="type-chip chip-pick">推荐</span>
+              <span class="type-chip chip-method">可预约</span>
+              <span class="font-mono">截至 2026-10-18</span>
+            </div>
+            <h3 class="font-heading">折叠梯 · 2 米款</h3>
+            <p class="preview">周末借用较多，建议提前 2 天预约；归还前请擦拭梯脚 mud。</p>
+            <p class="preview" style="margin-top: 0.75rem; font-size: 13px">分类 · 家装工具</p>
+          </article>
+        </div>
+      </div>
+
+      <div class="section-head">
+        <h2 class="font-heading">最新上架</h2>
+        <a href="#">看全部 →</a>
+      </div>
+      <div class="entry-grid">
+        <article class="card entry-card">
+          <div class="entry-meta">
+            <span class="type-chip chip-concept">说明</span>
+            <span class="font-mono">2026-10-17</span>
+          </div>
+          <h3 class="font-heading">压力清洗机使用须知</h3>
+          <p class="preview">首次借用需阅读<span class="mark">水压档位</span>与排水位置说明。</p>
+        </article>
+        <article class="card entry-card">
+          <div class="entry-meta">
+            <span class="type-chip chip-read">清单</span>
+            <span class="font-mono">2026-10-16</span>
+          </div>
+          <h3 class="font-heading">露营套装配件表</h3>
+          <p class="preview">炉头、气罐、折叠椅分箱存放，借出时按清单勾选。</p>
+        </article>
+        <article class="card entry-card">
+          <div class="entry-meta">
+            <span class="type-chip chip-career">规则</span>
+            <span class="font-mono">2026-10-15</span>
+          </div>
+          <h3 class="font-heading">电动工具损坏赔偿流程</h3>
+          <p class="preview">发生故障先停用并登记，由管理员联系检修，勿自行拆机。</p>
+        </article>
+      </div>
+
+      <div class="section-head">
+        <h2 class="font-heading">热门分类</h2>
+        <div class="seg-control" role="tablist">
+          <button type="button" class="is-active">全部</button>
+          <button type="button">可当日取</button>
+        </div>
+      </div>
+      <div class="topic-grid">
+        <article class="card topic-card">
+          <h3 class="font-heading">家装工具</h3>
+          <p class="topic-stats">38 件 · 本周新增 4</p>
+        </article>
+        <article class="card topic-card">
+          <h3 class="font-heading">园艺户外</h3>
+          <p class="topic-stats">21 件 · 本周新增 2</p>
+        </article>
+        <article class="card topic-card">
+          <h3 class="font-heading">厨房小家电</h3>
+          <p class="topic-stats">15 件 · 本周新增 1</p>
+        </article>
+      </div>
+
+      <div class="stat-grid" style="margin-top: 2.5rem">
+        <div class="card stat-card">
+          <div class="stat-label">可借物品</div>
+          <div class="stat-value">74</div>
+        </div>
+        <div class="card stat-card">
+          <div class="stat-label">本周预约</div>
+          <div class="stat-value">19</div>
+          <div class="stat-delta">+6</div>
+        </div>
+        <div class="card stat-card">
+          <div class="stat-label">按时归还率</div>
+          <div class="stat-value">96%</div>
+        </div>
+        <div class="card stat-card">
+          <div class="stat-label">活跃邻居</div>
+          <div class="stat-value">42</div>
+        </div>
+      </div>
+
+      <section class="footer-cta">
+        <div>
+          <h2 class="font-heading">想共享自己的工具？</h2>
+          <p>提交物品照片与借用规则，管理员审核后会出现在目录中。请勿填写真实门牌或电话。</p>
+        </div>
+        <a class="btn btn-outline" href="#">了解登记流程</a>
+      </section>
+    </main>
+
+    <footer class="site-footer page-frame">
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem">
+        <p style="margin: 0; max-width: 28rem">本页为 jiajia-ui 风格校准示例，内容与 jiajia.fun 无关。Filo 为 CSS 占位。</p>
+        <nav style="display: flex; flex-wrap: wrap; gap: 1rem">
+          <a href="#">使用说明</a>
+          <a href="#">更新记录</a>
+          <a href="#">关于</a>
+          <a href="#">隐私</a>
+        </nav>
+      </div>
+    </footer>
+  </body>
+</html>
