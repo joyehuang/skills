@@ -16,12 +16,7 @@ description: Web search and page fetching. Four engines — TinyFish (free defau
 | **语义/模糊回忆类兜底** | **Tavily** (`search.sh`) | 关键词精确度兜底 | — |
 | **Code repo internal docs / non-default-branch files** | **GitHub API / raw / code search directly** — do NOT use web search engines | Web search engines cannot index non-default branches or repo-internal paths (实测教训 2026-08-23) | — |
 
-**TinyFish 特有防线**：无结果时会硬凑结果（如填 YouTube）——拿到结果后做相关性复核，可疑就换 Tavily。用量已接监控（每晚 Telegram 日报）。
-
-**用量日志（每晚 websearch-daily 日报的数据源）**：`scripts/tinyfish.sh` 和 `scripts/search.sh` 已自动记录。Exa / Parallel 走 MCP 无法自动记录——**每次调 `web_search_exa` / `web_fetch_exa` / `web_search`(parallel) 后**，顺手执行一行：
-```bash
-echo "$(date '+%Y-%m-%d %H:%M:%S'),exa,search" >> ~/.config/websearch-usage/usage.log   # parallel 则把 exa 换成 parallel
-```
+**TinyFish 特有防线**：无结果时会硬凑结果（如填 YouTube）——拿到结果后做相关性复核，可疑就换 Tavily。
 
 ## Hard rules (from the 2026-08-23 search-lessons post-mortem)
 
